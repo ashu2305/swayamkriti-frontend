@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
+.signupBackground{
+    background-image: radial-gradient(rgb(50,50,50),black);
+    height:100vh
+}
+.signupHeading{
+    font-family: 'Grand Hotel', cursive;
+}
+.signupBox
+{
+    background-color: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 15px white;
+    margin-top: 20%;
+}
+.particleBackground
+{
+    position: absolute;
+    width: 98vw;
+    height: 100vh;
+}
