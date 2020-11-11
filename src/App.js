@@ -6,7 +6,7 @@ import Signup from './Components/Signup/signup'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Store from './store/store';
 import rootReducer from './store/rootReducer';
-
+import ForgotPassword from './Components/ForgotPassword/ForgotPassword'
 
 function App() {
   const initState = useContext(Store);
@@ -17,7 +17,7 @@ function App() {
       <Switch>
         <Route path="/login" component={Signin}/>
         <Route path="/signup" component={Signup}/>
-
+      <Route path="/forgotpassword" component={ForgotPassword}/>
       </Switch>
       </BrowserRouter>
     </Store.Provider>
