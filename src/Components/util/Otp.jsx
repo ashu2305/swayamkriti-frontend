@@ -17,7 +17,7 @@ const Otp = (props) => {
 
     const verifyOTP = async() => {
         const postData= {
-            _id : props.data._id,
+            _id : props.data.email,
             password: props.data.password,
             name: props.data.name,
             rollNo: props.data.rollNo
@@ -51,7 +51,10 @@ const Otp = (props) => {
         if(backOtp === md5(otp))
         {
             setLoad(true);
+            if(props.mode==="signup")
             verifyOTP();
+            //if(props.mode === "fp")
+            //return (<ForgetPassword page={2} email={props.data.email} />);
         }else{
             console.log(md5(otp));
             window.alert("OTP does not atch Please try again");

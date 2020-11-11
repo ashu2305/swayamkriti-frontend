@@ -90,7 +90,7 @@ const Signup = () => {
         console.log("hello in submit");
     }
     if(page === 2){
-        return (<Otp data={data} otp={OTP}     />);
+        return (<Otp  otp={OTP}  mode={"signup"}   />);
     }
     else
     return(
