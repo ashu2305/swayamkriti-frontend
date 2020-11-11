@@ -1,17 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
+import React, {useContext, useReducer} from 'react';
 import Signin from './Components/Login/login'
 import Signup from './Components/Signup/signup'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-function App() {
-  return (
-    <BrowserRouter>
-    <Switch>
-      <Route path="/login" component={Signin}/>
-      <Route path="/signup" component={Signup}/>
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Store from './store/store';
+import rootReducer from './store/rootReducer';
 
-    </Switch>
-    </BrowserRouter>
+
+function App() {
+  const initState = useContext(Store);
+   const [state, dispatch] = useReducer(rootReducer, initState);
+  return (
+    <Store.Provider value={{state,dispatch}} >
+      <BrowserRouter>
+      <Switch>
+        <Route path="/login" component={Signin}/>
+        <Route path="/signup" component={Signup}/>
+
+      </Switch>
+      </BrowserRouter>
+    </Store.Provider>
   );
 }
 
