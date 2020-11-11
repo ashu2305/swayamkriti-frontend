@@ -1,10 +1,92 @@
-import React from "react"
-import { Link } from "react-router-dom"
-import "./login.css"
+import React, {useState, useContext} from "react"
+import { Redirect, Link } from "react-router-dom"
+import "./login.css";
+import axios from 'axios';
+import Store from '../../store/store';
+import config from '../../config.json';
 import Particles from "react-particles-js"
 const Login = () => {
+    const{ state, dispatch } = useContext(Store);
+    const [page, setPage] = useState(0);
+    const[data, setData] = useState({
+        email:'',
+        password:'',
+    });
 
-    return (<div className="loginBackground" >
+    const[error, setError]  = useState(0);
+    //0 no error
+    //1 is empty
+    //2 not email
+    //4 wrong password
+    const [load, setLoad] = useState(false)
+
+    const handleChange = e =>{
+        setData({
+            ...data,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const verify = async() => {
+        try{
+            const res = await axios.post(
+                `${config.BASE}/login/` , 
+                data
+            );
+            console.log(res);
+            if(res.data)
+            {
+                console.log(res.data);
+                if(res.data.status === "True"){
+                    localStorage.setItem('FBIdToken', `${res.data.token}`);
+                    dispatch({
+                        type: 'ONBOARD',
+                        payload: res.data.token
+                    });
+
+                }
+                if(res.data.status === "False"){
+                    setError(4);
+                    setLoad(false);
+                }
+            }            
+        }catch(error){    
+            console.log(error.response);
+        }   
+    }
+   
+    const isEmail = (email) => {
+        const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (email.match(regEx)) 
+            return true;
+        else 
+            return false;
+    };
+
+
+    const onSubmit = e =>{
+        e.preventDefault();
+        if(data.email !== '' && data.password !== ''){
+            if(isEmail(data.email)){
+                setError(0);
+                setLoad(true);
+                verify();
+            }else{
+                setError(2);
+            }
+            
+        }else{
+            setError(1);
+        }
+        console.log("hello in submit");
+    }
+
+    if(state.isAuth){
+        return <Redirect to='/home' />;
+    }
+
+    return (
+    <div className="loginBackground" >
         <Particles className="particleBackground" />
         <div className="container">
             <div className="row">
@@ -15,21 +97,41 @@ const Login = () => {
                                 
                                 <h1 className="loginHeading">Login</h1>
                                 <div class="input-field">
-                                    <input id="email" type="email" class="validate white-text" />
+                                    <input id="email" 
+                                        type="email" 
+                                        class="validate white-text"
+                                        name='email'
+                                        onChange={handleChange}
+                                        required='required' 
+                                    />
                                     <label for="email">Email</label>
                                 </div>
                                 <div class="input-field">
-                                    <input id="password" type="password" class="validate white-text" />
+                                    <input id="password" 
+                                        type="password" 
+                                        class="validate white-text" 
+                                        name='password'
+                                        onChange={handleChange}
+                                        required='required'     
+                                    />
                                     <label for="password">Password</label>
                                 </div>
 
-                                <button class="btn waves-effect waves-light" type="submit" name="action">Login
+                                <button class="btn waves-effect waves-light" type="submit" onClick={onSubmit} name="action">Login
                                     <i class="material-icons right">
                                         send
                                     </i>
                                 </button>
                             </div>
-
+                            {error=== 1 && 
+                                <p>Fill all credentials</p>
+                            }
+                            {error === 2 &&
+                                <p>email not valid</p>
+                            }
+                            {error === 4 &&
+                                <p>wrong password</p>
+                            }
 
                             <div class="card-action center-align">
                                 <Link to="/forgotpassword" className="white-text">Forgot password</Link>

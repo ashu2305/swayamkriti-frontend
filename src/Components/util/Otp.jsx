@@ -3,7 +3,8 @@ import md5 from 'md5';
 import axios from 'axios';
 import config from '../../config.json';
 import {Link, Redirect} from "react-router-dom"
-import Particles from "react-particles-js"
+import Particles from "react-particles-js";
+import CreatePassword from '../util/CreatePassword';
 const Otp = (props) => {
     console.log(props);
     const[backOtp, setOTP] = useState(props.otp);
@@ -53,12 +54,23 @@ const Otp = (props) => {
             setLoad(true);
             if(props.mode==="signup")
             verifyOTP();
-            //if(props.mode === "fp")
-            //return (<ForgetPassword page={2} email={props.data.email} />);
+            if(props.mode === "fp"){
+                setLoad(false);
+                console.log("hello");
+                setPage(2);
+                
+                
+            }
+            
         }else{
             console.log(md5(otp));
             window.alert("OTP does not atch Please try again");
         }
+    }
+    if(page === 2)
+    {
+        return ( <CreatePassword  email={props.data.email} />);
+                
     }
     
 
@@ -69,7 +81,7 @@ const Otp = (props) => {
         }
         try{
             const res = await axios({
-                url: `${config.BASE}/sendEmail/`,
+                url: `${config.BASE}/sendEmail1/`,
                 method: "POST",
                 data: postData
             });
@@ -95,7 +107,7 @@ const Otp = (props) => {
         return (<Redirect to='/signup'/>);
     }
     if(page === 2){
-        return (<Redirect to='/home'/>);
+        return (<Redirect to='/login'/>);
     }
 
     return (

@@ -1,9 +1,70 @@
-import React from "react"
+import React, {useState} from "react"
 import {Link} from "react-router-dom"
 import Particles from "react-particles-js"
-import "./forgotpassword.css"
+import "./forgotpassword.css";
+import axios from 'axios';
+import config from '../../config.json';
+import Otp from '../util/Otp';
 
-const Signup = () => {
+const Forgotpassword = () => {
+    const [page, setPage] = useState(0);
+    const[data, setData] = useState({
+        email:''
+    });
+    const [error, setError] = useState(0); 
+    const[load, setLoad] = useState(false);
+    const[OTP, setOTP] = useState('');
+
+    const handleChange = e =>{
+        setData({
+            ...data,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const otpSent = async() => {
+        const postData = {
+            email : data.email,
+        }
+        try{
+            const res = await axios({
+                url: `${config.BASE}/sendEmail1/`,
+                method: "POST",
+                data: postData
+            });
+            if(res.data){ 
+                if(res.data.status === "not registerd"){
+                    window.alert("not registered");
+                    setLoad(false);
+                }
+                setOTP(res.data.status);
+                setPage(1);
+                setLoad(false);
+                console.log(res.data);
+            }            
+        }catch(error){
+            setLoad(false);
+            console.log(error);
+        }   
+    }
+
+    const onSubmit = e => {
+        e.preventDefault();
+        if(data.email !== ''  ) {
+            setLoad(true);
+            otpSent();
+            console.log("verified");
+        }
+        else {
+            setError(1);
+        }
+
+        //console.log("hello in submit");
+    }
+    if(page === 1){
+        return(<Otp  otp={OTP} data={data}  mode={"fp"}   />)
+    }
+
     return (<div className="forgotpasswordBackground">
         <Particles className="particleBackground" />
         <div className="container">
@@ -15,14 +76,26 @@ const Signup = () => {
                                 
                                 <h1 className="forgotpasswordHeading">Forgot Password</h1>
                                 <div class="input-field">
-                                    <input id="email" type="email" class="validate white-text" />
+                                    <input id="email" 
+                                        type="email" 
+                                        class="validate white-text" 
+                                        name='email'
+                                        onChange={handleChange}
+                                        required='required' 
+                                    />
                                     <label for="email">Email</label>
                                 </div>
-                                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                                <button class="btn waves-effect waves-light" type="submit" onClick={onSubmit} name="action">Submit
                                     <i class="material-icons right">
                                         send
                                     </i>
                                 </button>
+                                {error=== 1 && 
+                                    <p className="error">Fill all credentials</p>
+                                }
+                                {error === 2 &&
+                                    <p className="error">Email not registered</p>
+                                }
                             </div>
                             <div class="card-action center-align">
                                 
@@ -36,4 +109,4 @@ const Signup = () => {
     )
 }
 
-export default Signup;
+export default Forgotpassword;

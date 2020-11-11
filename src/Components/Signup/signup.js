@@ -44,7 +44,7 @@ const Signup = () => {
             {
                 if(res.data.status === "already registered"){
                     setLoad(false);
-                    //window.alert
+                    window.alert("Email already registered");
                 }else{
                     setOTP(res.data.status);
                     setPage(2);
@@ -90,7 +90,7 @@ const Signup = () => {
         console.log("hello in submit");
     }
     if(page === 2){
-        return (<Otp  otp={OTP}  mode={"signup"}   />);
+        return (<Otp  otp={OTP} data={data}  mode={"signup"}   />);
     }
     else
     return(
