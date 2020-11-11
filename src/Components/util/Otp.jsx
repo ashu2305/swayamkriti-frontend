@@ -129,7 +129,7 @@ const Otp = (props) => {
                                         onChange={handleChange}
                                         required='required'  
                                     />
-                                    <label htmlFor="name">OTP</label>
+                                    <label htmlFor="otp">OTP</label>
                                 </div>
                                 {load===false ?
                                     <button class="btn waves-effect waves-light" type="submit" onClick={onSubmit} name="action">Submit
