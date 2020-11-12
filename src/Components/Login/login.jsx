@@ -28,29 +28,34 @@ const Login = () => {
     };
 
     const verify = async() => {
+        const postData = {
+            username : data.email,
+            password: data.password
+        }
         try{
             const res = await axios.post(
-                `${config.BASE}/login/` , 
-                data
+                `${config.BASE}/api/token/` , 
+                postData
             );
             console.log(res);
             if(res.data)
             {
                 console.log(res.data);
-                if(res.data.status === "True"){
-                    localStorage.setItem('FBIdToken', `${res.data.token}`);
+                if(res.data.access){
+                    localStorage.setItem('FBIdToken', `${res.data.access}`);
                     dispatch({
                         type: 'ONBOARD',
-                        payload: res.data.token
+                        payload: res.data.access
                     });
 
                 }
-                if(res.data.status === "False"){
-                    setError(4);
-                    setLoad(false);
-                }
+               
             }            
-        }catch(error){    
+        }catch(error){ 
+            if(error.response.data.detail==="No active account found with the given credentials"){
+                setError(4);
+                setLoad(false);
+            }   
             console.log(error.response);
         }   
     }

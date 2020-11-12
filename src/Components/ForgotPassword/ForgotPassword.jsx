@@ -23,24 +23,23 @@ const Forgotpassword = () => {
     };
 
     const otpSent = async() => {
-        const postData = {
-            email : data.email,
-        }
         try{
             const res = await axios({
-                url: `${config.BASE}/sendEmail1/`,
-                method: "POST",
-                data: postData
+                url: `${config.BASE}/user/sendotp_fp/${data.email}/`,
+                method: "GET",
             });
             if(res.data){ 
-                if(res.data.status === "not registerd"){
+                if(res.data.otp === "not exist"){
                     window.alert("not registered");
                     setLoad(false);
                 }
-                setOTP(res.data.status);
+                else{
+                    setOTP(res.data.otp);
                 setPage(1);
                 setLoad(false);
                 console.log(res.data);
+            }
+                
             }            
         }catch(error){
             setLoad(false);
@@ -85,11 +84,18 @@ const Forgotpassword = () => {
                                     />
                                     <label for="email">Email</label>
                                 </div>
-                                <button class="btn waves-effect waves-light" type="submit" onClick={onSubmit} name="action">Submit
+                                {load ? 
+                                    <button class="btn waves-effect waves-light" name="action">LOADING
+                                    </button>
+                                    :
+                                    <button class="btn waves-effect waves-light" type="submit" onClick={onSubmit} name="action">Submit
                                     <i class="material-icons right">
                                         send
                                     </i>
                                 </button>
+
+                                }
+                                
                                 {error=== 1 && 
                                     <p className="error">Fill all credentials</p>
                                 }

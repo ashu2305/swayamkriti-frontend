@@ -36,9 +36,8 @@ const Signup = () => {
         }
         try{
             const res = await axios({
-                url: `${config.BASE}/sendEmail/`,
-                method: "POST",
-                data: postData
+                url: `${config.BASE}/user/sendotp/${data.email}/`,
+                method: "GET",
             });
             if(res.data)
             {
@@ -46,7 +45,7 @@ const Signup = () => {
                     setLoad(false);
                     window.alert("Email already registered");
                 }else{
-                    setOTP(res.data.status);
+                    setOTP(res.data.otp);
                     setPage(2);
                     setLoad(false);
                 }

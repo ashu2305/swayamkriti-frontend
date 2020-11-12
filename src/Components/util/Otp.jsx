@@ -18,21 +18,22 @@ const Otp = (props) => {
 
     const verifyOTP = async() => {
         const postData= {
-            _id : props.data.email,
+            email : props.data.email,
             password: props.data.password,
-            name: props.data.name,
-            rollNo: props.data.rollNo
+            name: props.data.username,
+            gender: "M"
         }
         try{
             const res = await axios({
-                url: `${config.BASE}/signUp/`,
+                url: `${config.BASE}/user/signup/
+                `,
                 method: "POST",
                 data: postData
             })
             if(res.data){
                 //console.log(res.data);
                 setLoad(false);
-                setPage(2);
+                setPage(3);
             }
 
         }catch(error){
@@ -49,14 +50,13 @@ const Otp = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if(backOtp === md5(otp))
+        if(md5(backOtp) === md5(otp))
         {
             setLoad(true);
             if(props.mode==="signup")
-            verifyOTP();
+                verifyOTP();
             if(props.mode === "fp"){
                 setLoad(false);
-                console.log("hello");
                 setPage(2);
                 
                 
@@ -76,14 +76,18 @@ const Otp = (props) => {
 
     const resendOTP = async() => {
         setLoad(true);
-        const postData = {
-            email : props.data.email,
+        let url;
+        if(props.mode === "fp"){
+               url =    `${config.BASE}/user/sendotp_fp/${props.data.email}/`
+        }
+        else if(props.mode === "signup"){
+             url =  `${config.BASE}/user/sendotp/${props.data.email}/`;
         }
         try{
             const res = await axios({
-                url: `${config.BASE}/sendEmail1/`,
-                method: "POST",
-                data: postData
+                
+                url: url,
+                method: "GET"
             });
             if(res.data)
             {
@@ -91,7 +95,7 @@ const Otp = (props) => {
                     setLoad(false);
                     //window.alert
                 }else{
-                    setOTP(res.data.status);
+                    setOTP(res.data.otp);
                     setLoad(false);
                 }
                 console.log(res.data);
@@ -106,7 +110,7 @@ const Otp = (props) => {
     if(page===1){
         return (<Redirect to='/signup'/>);
     }
-    if(page === 2){
+    if(page === 3){
         return (<Redirect to='/login'/>);
     }
 
