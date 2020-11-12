@@ -2,7 +2,7 @@ import React from "react"
 import M from "materialize-css"
 import "./home.css"
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png"
+import logo from "../../assets/logo.png";
 const Home = () => {
     document.addEventListener('DOMContentLoaded', function () {
         var elems = document.querySelectorAll('.sidenav');
@@ -28,13 +28,13 @@ const Home = () => {
                 <li><Link to="/signup">Sign Up</Link></li>
                 
             </ul>
-            <div className="container">
+            {/* <div className="container">
                 <div className="row">
                     <div className="col s12 m12">
                         <h1 className="white-text center-align">SwayamKriti</h1>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div class="conatiner">
                 <div class="wrap">
 
