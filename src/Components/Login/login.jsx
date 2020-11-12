@@ -5,6 +5,7 @@ import axios from 'axios';
 import Store from '../../store/store';
 import config from '../../config.json';
 import Particles from "react-particles-js"
+
 const Login = () => {
     const{ state, dispatch } = useContext(Store);
     const [page, setPage] = useState(0);

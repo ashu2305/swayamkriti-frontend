@@ -37,8 +37,11 @@
     font-weight: bold;
     margin: 27px 0 0 120px;
   }
+  .about-top{
+    margin-top: 35px !important;;
+  }
   .about{
-    margin-top: 35px;
+    margin-top: 20px;
     line-height: 21px;
   }
   button{

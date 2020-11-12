@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import './profile.css';
 import axios from 'axios';
 import config from '../../config.json';
@@ -6,45 +6,57 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import Select from 'react-select'
+import skillsFile from "./skills.json"
 const Profile = () => {
     const [user, setUser] = useState({
 
     });
     const [data, setData] = useState({
-        college: "",
+        rollno: "",
         branch: "",
-        semester: "",
-        skills:[]
+        program: "",
+        skills:[],
+        areaofinterest: '',
+        image:'',
+        year:'',
+        email:'',
+        gender:'',
+        name:''
     })
-    const [skills,setSkills] = useState([]);
-    const [areaofinterest,setAreaOfInterest] = useState([]);
-    const skillsSet = [
-        { value: 'javascript', label: 'Javascript' },
-        { value: 'react', label: 'React' },
-        { value: 'nodejs', label: 'Nodejs' }
-    ]
-    const areaofinterestSet = [
-        { value: 'javascript', label: 'Javascript' },
-        { value: 'react', label: 'React' },
-        { value: 'nodejs', label: 'Nodejs' }
-    ]
+    
+    const skillsSet=skillsFile
+    
     useEffect(() => {
         const getUser = async () => {
             try {
-                const config   ={ 
-                    headers: {
-                    Authorization: `Bearer ${localStorage.FBIdToken}`
-                    }
-                }
+                
                 const res = await axios({
                     url: `https://excal.herokuapp.com/user/profile/`,
                     method: "GET",
-                    config
+                    headers: {
+                        Authorization: `Bearer ${localStorage.FBIdToken}`
+                        }
                 });
                 if (res.data) {
                     setUser(res.data);
                     console.log(res.data);
                     //console.log(user);
+                    let input = res.data.result;
+                    let x = input.skills.split(' : ');
+                    let y=[];
+                    x.map((item)=>(y.push({value: item, label: item})));
+                    setData({
+                        rollno: input.rollno?input.rollno:"",
+                        branch: input.branch?input.branch:"",
+                        program: input.prog?input.prog:"",
+                        skills:y,
+                        areaofinterest: input.areaofinterest?input.areaofinterest:'',
+                        image:input.image?input.image:'',
+                        year: input.year?input.year:'',
+                        email:input.email?input.email:'',
+                        gender:input.gender?input.gender:'',
+                        name:input.name?input.name:''
+                    })
                 }
             }
             catch (error) {
@@ -52,26 +64,42 @@ const Profile = () => {
             }
         };
         getUser();
+        
     }, []);
+
+    const fileChange = e => {
+        let filex = e.target.files[0]
+        setData({
+            ...data,
+            image : filex
+        });
+    };
 
     const submit = async () => {
         try {
+            let y=[];
+            data.skills.map((item)=>(y.push(item.value)));
+
+            const x = y.join(' : ');
+            const formData = new FormData();
+            formData.append( 'branch', data.branch);
+            formData.append('year', data.year);
+            formData.append('rollno',data.rollno);
+            formData.append('prog', data.program);
+            formData.append('skills', x);
+            formData.append('areaofinterest', data.areaofinterest);
+            formData.append('image', data.image);
+            
             const result = await axios({
-                url: `${config.BASE}/updateProfile`,
+                url: `${config.BASE}/user/addmentor/`,
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${localStorage.FBIdToken}`
                 },
-                data
+                data: formData
             });
             if (result.data) {
                 console.log(result.data);
-                setUser({
-                    ...user,
-                    branch: data.branch,
-                    semester: data.semester,
-                    college: data.college
-                })
                 handleClose();
             }
         }
@@ -86,11 +114,12 @@ const Profile = () => {
             ...data,
             [e.target.name]: e.target.value
         });
-        console.log(data)
     };
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false);
+    };
     const handleShow = () => setShow(true);
     const onSubmit = () => {
         submit();
@@ -102,15 +131,22 @@ const Profile = () => {
         })
         
     }
+    console.log(data);
     return (
         <div className="prof-back">
             <div class="prof-container">
                 <div class="cover-photo">
                     <img src="https://images.unsplash.com/photo-1565464027194-7957a2295fb7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80" class="profile" />
                 </div>
-                <div class="profile-name">Beni Smith</div>
-                <p class="about">User Interface: <span>hello </span><br /></p><p> Designer and<br />front-end developer</p>
-                <p>hello here is loop of your extra details</p>
+                <div class="profile-name">{data.name}</div>
+                <p class="about about-top">E-mail Id: <span>{data.email} </span><br /></p>
+                {data.branch && <p class="about">Branch: <span>{data.branch} </span><br /></p>}
+                {data.program && <p class="about">Program: <span>{data.program} </span><br /></p>}
+                {data.year && <p class="about">Year: <span>{data.year} </span><br /></p>}
+                {data.rollno && <p class="about">Roll No: <span>{data.rollno} </span><br /></p>}
+                {data.skills && <p class="about">Skills: <span>{data.skills && data.skills.map((items)=>(<><span>{items.value}</span><span> , </span> </>))} </span><br /></p>}
+                {data.areaofinterest && <p class="about">Area of Interest : <span>{data.areaofinterest && data.areaofinterest.split(': ').map((items)=>(<><span>{items}</span><span> , </span> </>))} </span><br /></p>}
+                
                 <div>
                     <button class="msg-btn" onClick={handleShow}>Add More Detais</button>
                     <div>
@@ -121,12 +157,16 @@ const Profile = () => {
                             <Modal.Body>
                                 <Form>
                                     <Form.Group >
-                                        <Form.Label>College Name</Form.Label>
-                                        <Form.Control type="text" placeholder="Enter college name" onChange={handleChange} name="college" />
+                                        <Form.Label>Roll No</Form.Label>
+                                        <Form.Control type="number" value={data.rollno} placeholder="Enter Roll No" onChange={handleChange} name="rollno" />
+                                    </Form.Group>
+                                    <Form.Group >
+                                        <Form.Label>Profile Photo</Form.Label>
+                                        <Form.Control type="file" placeholder="Enter Roll No"   onChange ={fileChange} />
                                     </Form.Group>
                                     <Form.Group controlId="exampleForm.SelectCustom">
                                         <Form.Label>Starting Year</Form.Label>
-                                        <Form.Control as="select" custom name="year"  onChange={handleChange}>
+                                        <Form.Control as="select" value={data.year} custom name="year"  onChange={handleChange}>
 
                                             <option>2020</option>
                                             <option>2019</option>
@@ -173,21 +213,17 @@ const Profile = () => {
                                         </Form.Control>
                                     </Form.Group>
                                     <Form.Group controlId="exampleForm.SelectCustom">
-                                        <Form.Label>Semester</Form.Label>
-                                        <Form.Control as="select" custom name="semester"  onChange={handleChange}>
-                                            <option>1st</option>
-                                            <option>2nd</option>
-                                            <option>3rd</option>
-                                            <option>4th</option>
-                                            <option>5th</option>
-                                            <option>6th</option>
-                                            <option>7th</option>
-                                            <option>8th</option>
+                                        <Form.Label>Program</Form.Label>
+                                        <Form.Control as="select" value={data.program} custom name="program"  onChange={handleChange}>
+                                            <option>B. Tech </option>
+                                            <option>M.Tech</option>
+                                            <option>MCA</option>
+                                            <option>MBA</option>
                                         </Form.Control>
                                     </Form.Group>
                                     <Form.Group controlId="exampleForm.SelectCustom">
                                         <Form.Label>Branch</Form.Label>
-                                        <Form.Control as="select" custom name="branch"  onChange={handleChange}>
+                                        <Form.Control as="select" custom name="branch" value={data.branch}  onChange={handleChange}>
                                             <option>Civil Engineering</option>
                                             <option>Computer Engineering</option>
                                             <option>Electrical Enginnering</option>
@@ -199,11 +235,12 @@ const Profile = () => {
                                     </Form.Group>
                                     <Form.Group>
                                     <Form.Label>Skills</Form.Label>
-                                        <Select options={skillsSet} isMulti name="skills"  onChange={handleChangeSkills} />
+                                        <Select options={skillsSet} isMulti name="skills" value={data.skills}  onChange={handleChangeSkills} />
                                     </Form.Group>
                                     <Form.Group>
                                     <Form.Label>Area of Interest</Form.Label>
-                                        <Select options={skillsSet} isMulti name="skills"  onChange={handleChangeSkills} />
+                                    <Form.Control type="text" placeholder="Seperated by :"  value={data.areaofinterest} onChange={handleChange} name="areaofinterest" />
+                                    
                                     </Form.Group>
                                 </Form>
                             </Modal.Body>
