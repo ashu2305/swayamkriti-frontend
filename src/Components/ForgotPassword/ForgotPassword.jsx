@@ -97,10 +97,10 @@ const Forgotpassword = () => {
                                 }
                                 
                                 {error=== 1 && 
-                                    <p className="error">Fill all credentials</p>
+                                    <p className="error center-align">Fill all credentials</p>
                                 }
                                 {error === 2 &&
-                                    <p className="error">Email not registered</p>
+                                    <p className="error center-align">Email not registered</p>
                                 }
                             </div>
                             <div class="card-action center-align">

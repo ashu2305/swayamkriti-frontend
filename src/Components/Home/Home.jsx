@@ -30,13 +30,13 @@ const Home = () => {
             </ul> */}
          
             <Header/>
-            <div className="container">
+            {/* <div className="container">
                 <div className="row">
                     <div className="col s12 m12">
                         <h1 className="white-text center-align">SwayamKriti</h1>
                     </div>
-                </div>
-            </div> 
+                </div> */}
+            {/* </div>  */}
             <div class="conatiner">
                 <div class="wrap">
 

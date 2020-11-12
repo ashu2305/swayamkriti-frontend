@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { useContext, useReducer } from 'react';
 import Signin from './Components/Login/login'
@@ -9,6 +8,7 @@ import rootReducer from './store/rootReducer';
 import ForgotPassword from './Components/ForgotPassword/ForgotPassword'
 import Home from './Components/Home/Home';
 import Profile from './Components/Profile/Profile';
+import Logout from './Components/util/Logout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -22,6 +22,7 @@ function App() {
           <Route path="/signup" component={Signup} />
           <Route path="/profile" component={Profile} />
           <Route path="/forgotpassword" component={ForgotPassword} />
+          <Route path="/logout" component={Logout} />
           <Route path="/" component={Home} />
         </Switch>
       </BrowserRouter>

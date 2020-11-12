@@ -129,13 +129,13 @@ const Login = () => {
                                 </button>
                             </div>
                             {error=== 1 && 
-                                <p>Fill all credentials</p>
+                                <p className="error center-align"> Fill all credentials</p>
                             }
                             {error === 2 &&
-                                <p>email not valid</p>
+                                <p className="error center-align">email not valid</p>
                             }
                             {error === 4 &&
-                                <p>wrong password</p>
+                                <p className="error center-align">wrong password</p>
                             }
 
                             <div class="card-action center-align">

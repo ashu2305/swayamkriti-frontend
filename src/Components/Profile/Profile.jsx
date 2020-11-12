@@ -31,12 +31,15 @@ const Profile = () => {
     useEffect(() => {
         const getUser = async () => {
             try {
-                const res = await axios({
-                    url: `${config.BASE}/getUserDetails/`,
-                    method: "POST",
+                const config   ={ 
                     headers: {
-                        Authorization: `Bearer ${localStorage.FBIdToken}`
+                    Authorization: `Bearer ${localStorage.FBIdToken}`
                     }
+                }
+                const res = await axios({
+                    url: `https://excal.herokuapp.com/user/profile/`,
+                    method: "GET",
+                    config
                 });
                 if (res.data) {
                     setUser(res.data);
@@ -124,6 +127,7 @@ const Profile = () => {
                                     <Form.Group controlId="exampleForm.SelectCustom">
                                         <Form.Label>Starting Year</Form.Label>
                                         <Form.Control as="select" custom name="year"  onChange={handleChange}>
+
                                             <option>2020</option>
                                             <option>2019</option>
                                             <option>2018</option>

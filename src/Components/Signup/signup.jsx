@@ -165,13 +165,13 @@ const Signup = () => {
                                     </button>
                                 }
                                 {error=== 1 && 
-                                    <p className="error">Fill all credentials</p>
+                                    <p className="error center-align">Fill all credentials</p>
                                 }
                                 {error === 2 &&
-                                    <p className="error">Email not valid</p>
+                                    <p className="error center-align">Email not valid</p>
                                 }
                                 {error === 3 &&
-                                    <p  className="error">Password not match</p>
+                                    <p  className="error center-align">Password not match</p>
                                 }
                                 
                             </div>

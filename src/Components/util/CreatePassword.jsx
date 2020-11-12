@@ -31,13 +31,13 @@ const CreatePassword=(props)=> {
         }
         try {
             const res = await axios({
-                url: `${config.BASE}/FP/`,
+                url: `${config.BASE}/user/FP/`,
                 method: "POST",
                 data: userData
             })
 
             if(res.data) {
-                if(res.data.status === "done"){
+                if(res.data.otp === "otp"){
                     setLoad(false);
                     //window.alert(content.alert);
                     setVerified(true);
@@ -88,7 +88,7 @@ const CreatePassword=(props)=> {
                                         onChange={handleChange}
                                         required='required' 
                                     />
-                                    <label for="email">Password</label>
+                                    <label for="password">Password</label>
                                 </div>
                                 <div class="input-field">
                                     <input id="confirmPassword" 
@@ -98,7 +98,7 @@ const CreatePassword=(props)=> {
                                         onChange={handleChange}
                                         required='required' 
                                     />
-                                    <label for="email">Confirm Password</label>
+                                    <label for="confirmPassword">Confirm Password</label>
                                 </div>
                                 <button class="btn waves-effect waves-light" type="submit" onClick={onSubmit} name="action">Submit
                                     <i class="material-icons right">
@@ -106,10 +106,10 @@ const CreatePassword=(props)=> {
                                     </i>
                                 </button>
                                 {error=== 1 && 
-                                    <p className="error">Fill all credentials</p>
+                                    <p className="error center-align">Fill all credentials</p>
                                 }
                                 {error === 2 &&
-                                    <p className="error">Password does not match</p>
+                                    <p className="error center-align">Password does not match</p>
                                 }
 
                             </div>
