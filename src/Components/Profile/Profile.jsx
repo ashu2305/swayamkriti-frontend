@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import './profile.css';
 import axios from 'axios';
 import config from '../../config.json';
@@ -6,6 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import Select from 'react-select'
+import skillsFile from "./skills.json"
 const Profile = () => {
     const [user, setUser] = useState({
 
@@ -16,18 +17,9 @@ const Profile = () => {
         semester: "",
         skills:[]
     })
-    const [skills,setSkills] = useState([]);
-    const [areaofinterest,setAreaOfInterest] = useState([]);
-    const skillsSet = [
-        { value: 'javascript', label: 'Javascript' },
-        { value: 'react', label: 'React' },
-        { value: 'nodejs', label: 'Nodejs' }
-    ]
-    const areaofinterestSet = [
-        { value: 'javascript', label: 'Javascript' },
-        { value: 'react', label: 'React' },
-        { value: 'nodejs', label: 'Nodejs' }
-    ]
+    
+    const skillsSet=skillsFile
+    
     useEffect(() => {
         const getUser = async () => {
             try {
@@ -49,6 +41,7 @@ const Profile = () => {
             }
         };
         getUser();
+        
     }, []);
 
     const submit = async () => {
@@ -199,7 +192,8 @@ const Profile = () => {
                                     </Form.Group>
                                     <Form.Group>
                                     <Form.Label>Area of Interest</Form.Label>
-                                        <Select options={skillsSet} isMulti name="skills"  onChange={handleChangeSkills} />
+                                    <Form.Control type="text" placeholder="Seperated by :" onChange={handleChange} name="areaofinterest" />
+                                    
                                     </Form.Group>
                                 </Form>
                             </Modal.Body>
