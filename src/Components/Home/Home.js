@@ -11,7 +11,7 @@ const Home = () => {
 
     return (
         <>
-            <nav className="black">
+            {/* <nav className="black">
                 <div class="nav-wrapper">
                     <a href="#!" class="brand-logo"><div><img src={logo}/></div></a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -27,7 +27,32 @@ const Home = () => {
                 <li><Link to="/login">login</Link></li>
                 <li><Link to="/signup">Sign Up</Link></li>
                 
-            </ul>
+            </ul> */}
+            {/* <Navbar
+  alignLinks="right"
+  brand={<a className="brand-logo" href="#"><img src={logo}/><h5 className="heading">SwayamKriti</h5></a>}
+  id="mobile-nav"
+  menuIcon={<Icon>menu</Icon>}
+  options={{
+    draggable: true,
+    edge: 'left',
+    inDuration: 250,
+    onCloseEnd: null,
+    onCloseStart: null,
+    onOpenEnd: null,
+    onOpenStart: null,
+    outDuration: 200,
+    preventScrolling: true
+  }}
+  className="black"
+>
+  <NavItem href="/login">
+    Login
+  </NavItem>
+  <NavItem href="/signup">
+    SignUp
+  </NavItem>
+</Navbar> */}
             <div className="container">
                 <div className="row">
                     <div className="col s12 m12">
