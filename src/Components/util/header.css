@@ -1,0 +1,25 @@
+.logo{
+    width: 30px;
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-top: 2%;
+	display: inline-block;
+}
+@media screen and (max-width:660px)
+{  
+.logo{
+    width: 30px;
+    margin-left: auto;
+}
+}
+.heading
+{
+	display: inline-block;
+	font-family: 'Raleway', sans-serif;
+	margin-top: 0;
+}
+#mobile-nav
+{
+    background-color: black;
+    
+}

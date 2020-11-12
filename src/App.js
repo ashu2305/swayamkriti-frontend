@@ -8,6 +8,8 @@ import Store from './store/store';
 import rootReducer from './store/rootReducer';
 import ForgotPassword from './Components/ForgotPassword/ForgotPassword'
 import Home from './Components/Home/Home';
+import Profile from './Components/Profile/Profile';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const initState = useContext(Store);
@@ -18,6 +20,7 @@ function App() {
         <Switch>
           <Route path="/login" component={Signin} />
           <Route path="/signup" component={Signup} />
+          <Route path="/profile" component={Profile} />
           <Route path="/forgotpassword" component={ForgotPassword} />
           <Route path="/" component={Home} />
         </Switch>

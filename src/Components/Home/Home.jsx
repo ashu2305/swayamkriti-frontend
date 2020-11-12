@@ -2,7 +2,7 @@ import React from "react"
 import M from "materialize-css"
 import "./home.css"
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png"
+import Header from "../util/Header"
 const Home = () => {
     document.addEventListener('DOMContentLoaded', function () {
         var elems = document.querySelectorAll('.sidenav');
@@ -10,7 +10,7 @@ const Home = () => {
     });
 
     return (
-        <>
+        <div className="homeBox">
             {/* <nav className="black">
                 <div class="nav-wrapper">
                     <a href="#!" class="brand-logo"><div><img src={logo}/></div></a>
@@ -28,38 +28,15 @@ const Home = () => {
                 <li><Link to="/signup">Sign Up</Link></li>
                 
             </ul> */}
-            {/* <Navbar
-  alignLinks="right"
-  brand={<a className="brand-logo" href="#"><img src={logo}/><h5 className="heading">SwayamKriti</h5></a>}
-  id="mobile-nav"
-  menuIcon={<Icon>menu</Icon>}
-  options={{
-    draggable: true,
-    edge: 'left',
-    inDuration: 250,
-    onCloseEnd: null,
-    onCloseStart: null,
-    onOpenEnd: null,
-    onOpenStart: null,
-    outDuration: 200,
-    preventScrolling: true
-  }}
-  className="black"
->
-  <NavItem href="/login">
-    Login
-  </NavItem>
-  <NavItem href="/signup">
-    SignUp
-  </NavItem>
-</Navbar> */}
+         
+            <Header/>
             <div className="container">
                 <div className="row">
                     <div className="col s12 m12">
                         <h1 className="white-text center-align">SwayamKriti</h1>
                     </div>
                 </div>
-            </div>
+            </div> 
             <div class="conatiner">
                 <div class="wrap">
 
@@ -99,7 +76,7 @@ const Home = () => {
                 </div>
             </div>
 
-        </>
+        </div>
     )
 }
 

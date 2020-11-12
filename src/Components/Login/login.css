@@ -8,7 +8,7 @@
 }
 .loginBox
 {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.6)!important;
     box-shadow: 0 0 15px white;
     margin-top: 20%;
 }
