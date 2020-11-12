@@ -1,16 +1,17 @@
 .prof-back{
     font-family: Montserrat, sans-serif;
     background: #28223f;
+    padding-top: 10vh;
   }
   .prof-container{
-      position: absolute;
-      left: 15vw;; 
+      
     user-select: none;
-    margin: 100px auto;
+    margin: auto;
     background: #231e39;
+    margin-left: 10vw;
     color: #b3b8cd;
     border-radius: 5px;
-    width: 70vw;
+    width: 80vw;
     padding-bottom: 20px;;
     height: auto;
     text-align: center;
@@ -57,7 +58,7 @@
     margin-left: 10px;
     background: transparent;
     color: #02899c;
-    width: 300px;
+    width: 45%;
   }
   
   .container i{

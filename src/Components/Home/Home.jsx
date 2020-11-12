@@ -2,7 +2,7 @@ import React from "react"
 import M from "materialize-css"
 import "./home.css"
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png";
+import Header from "../util/Header"
 const Home = () => {
     document.addEventListener('DOMContentLoaded', function () {
         var elems = document.querySelectorAll('.sidenav');
@@ -10,8 +10,8 @@ const Home = () => {
     });
 
     return (
-        <>
-            <nav className="black">
+        <div className="homeBox">
+            {/* <nav className="black">
                 <div class="nav-wrapper">
                     <a href="#!" class="brand-logo"><div><img src={logo}/></div></a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -27,14 +27,16 @@ const Home = () => {
                 <li><Link to="/login">login</Link></li>
                 <li><Link to="/signup">Sign Up</Link></li>
                 
-            </ul>
-            {/* <div className="container">
+            </ul> */}
+         
+            <Header/>
+            <div className="container">
                 <div className="row">
                     <div className="col s12 m12">
                         <h1 className="white-text center-align">SwayamKriti</h1>
                     </div>
                 </div>
-            </div> */}
+            </div> 
             <div class="conatiner">
                 <div class="wrap">
 
@@ -74,7 +76,7 @@ const Home = () => {
                 </div>
             </div>
 
-        </>
+        </div>
     )
 }
 
