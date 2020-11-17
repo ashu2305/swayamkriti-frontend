@@ -137,6 +137,7 @@ const Signup = () => {
                                     />
                                     <label htmlFor="password">Password</label>
                                 </div>
+                                
                                 <div class="input-field">
                                     <input id="confirmPassword" 
                                         type="password" 
@@ -148,16 +149,13 @@ const Signup = () => {
                                     <label htmlFor="confirmPassword">Confirm Password</label>
                                 </div>
                                 <div class="input-field">
-                                    <input id="rollNo" 
-                                        type="number" 
-                                        class="validate white-text" 
-                                        name='rollNo'
-                                        onChange={handleChange}
-                                        required='required'     
-                                    />
-                                    <label htmlFor="rollNo">Roll No.</label>
-                                </div>
-                               <div class="input-field"><select ><option>hello</option></select></div>
+                                        <select style={{display:"inline-block"}}>
+                                            <option value="" disabled selected>Choose your gender</option>
+                                            <option value="1">Male</option>
+                                            <option value="2">Female</option>
+                                            <option value="3">Transgender</option>
+                                        </select>
+                                    </div>
                                 {load===false ?
                                     <button class="btn waves-effect waves-light" type="submit" onClick={onSubmit} name="action">SignUp
                                         <i class="material-icons right">
