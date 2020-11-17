@@ -10,6 +10,7 @@ import Home from './Components/Home/Home';
 import Profile from './Components/Profile/Profile';
 import Logout from './Components/util/Logout';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Mentor from './Components/Mentor/Mentor'
 
 function App() {
   const initState = useContext(Store);
@@ -23,6 +24,7 @@ function App() {
           <Route path="/profile" component={Profile} />
           <Route path="/forgotpassword" component={ForgotPassword} />
           <Route path="/logout" component={Logout} />
+          <Route path ="/mentor" component = {Mentor} />
           <Route path="/" component={Home} />
         </Switch>
       </BrowserRouter>
