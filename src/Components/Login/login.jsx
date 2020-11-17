@@ -101,6 +101,7 @@ const Login = () => {
                         <div class="card loginBox">
                             <div class="card-content white-text center-align">
                                 <div className="swyamHeading" >SWYAMKRITI</div><br/>
+                                <h6>Welcome Here Again</h6>
                                 <h1 className="loginHeading">Login</h1>
                                 <div class="input-field">
                                     <input id="email" 
@@ -122,12 +123,18 @@ const Login = () => {
                                     />
                                     <label for="password">Password</label>
                                 </div>
-
-                                <button class="btn waves-effect waves-light" type="submit" onClick={onSubmit} name="action">Login
-                                    <i class="material-icons right">
-                                        send
-                                    </i>
-                                </button>
+                                {load===false ?
+                                    <button class="btn waves-effect waves-light" type="submit" onClick={onSubmit} name="action">Login
+                                        <i class="material-icons right">
+                                            send
+                                        </i>
+                                    </button>
+                                    :
+                                    <button class="btn waves-effect waves-light" name="action">Loading
+                                        
+                                    </button>
+                                }
+                               
                             </div>
                             {error=== 1 && 
                                 <p className="error center-align"> Fill all credentials</p>
@@ -141,7 +148,8 @@ const Login = () => {
 
                             <div class="card-action center-align">
                                 <Link to="/forgotpassword" className="white-text">Forgot password</Link>
-
+                            </div>
+                            <div class="card-action center-align">
                                 <Link to="/signup" className="white-text">Create new account</Link>
                             </div>
                         </div>

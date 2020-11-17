@@ -104,7 +104,7 @@ const Forgotpassword = () => {
                                 }
                             </div>
                             <div class="card-action center-align">
-                                
+                                <Link to="/login" className="white-text">Back to Login</Link>
                             </div>
                         </div>
                     </div>

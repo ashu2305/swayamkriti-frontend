@@ -1,13 +1,18 @@
-import React from "react"
+import React, {useContext} from "react"
 import M from "materialize-css"
-import "./home.css"
-import { Link } from "react-router-dom";
+import "./home.css";
+import Store from '../../store/store';
+import { Link, Redirect } from "react-router-dom";
 import Header from "../util/Header"
 const Home = () => {
     document.addEventListener('DOMContentLoaded', function () {
         var elems = document.querySelectorAll('.sidenav');
         var instances = M.Sidenav.init(elems);
     });
+    const {state} = useContext(Store);
+    if(!state.isAuth){
+        return (<Redirect to='/login' />)
+    }
 
     return (
         <div className="homeBox">

@@ -19,7 +19,7 @@ const Profile = () => {
         program: "",
         skills:[],
         areaofinterest: '',
-        image:'',
+        image:'kcn2vbzm3c6lrqxliaw3',
         year:'',
         email:'',
         gender:'',
@@ -50,16 +50,18 @@ const Profile = () => {
                     console.log(res.data);
                     //console.log(user);
                     let input = res.data.result;
-                    let x = input.skills.split(' : ');
+                    console.log(input.skills);
                     let y=[];
-                    x.map((item)=>(y.push({value: item, label: item})));
+                    if(input.skills=== "undefined"){
+                    let x = input.skills.split(' : ');
+                    x.map((item)=>(y.push({value: item, label: item})));}
                     setData({
                         rollno: input.rollno?input.rollno:"",
                         branch: input.branch?input.branch:"",
                         program: input.prog?input.prog:"",
                         skills:y,
                         areaofinterest: input.areaofinterest?input.areaofinterest:'',
-                        image:input.image?input.image:'',
+                        image:(input.image !== "None")?input.image:'kcn2vbzm3c6lrqxliaw3',
                         year: input.year?input.year:'',
                         email:input.email?input.email:'',
                         gender:input.gender?input.gender:'',
@@ -71,6 +73,8 @@ const Profile = () => {
                 console.log(error.response);
                 if(error.response.status === 401){
                     setError(1);
+                }else{
+                    setError(0);
                 }
                 console.log(error);
             }
@@ -94,15 +98,16 @@ const Profile = () => {
     const submit = async () => {
         try {
             let y=[];
+            if(data.skills.length > 0 ){
             data.skills.map((item)=>(y.push(item.value)));
 
-            const x = y.join(' : ');
+            const x = y.join(' : ');}
             const formData = new FormData();
             formData.append( 'branch', data.branch);
             formData.append('year', data.year);
             formData.append('rollno',data.rollno);
             formData.append('prog', data.program);
-            formData.append('skills', x);
+            formData.append('skills', y);
             formData.append('areaofinterest', data.areaofinterest);
             formData.append('image', data.image);
             
@@ -152,7 +157,7 @@ const Profile = () => {
             
             <div class="prof-container">
                 <div class="cover-photo">
-                    <img src="https://images.unsplash.com/photo-1565464027194-7957a2295fb7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80" class="profile" />
+                    <img src={`${config.IMAGE_URL}${data.image}`} class="profile" />
                 </div>
                 <div class="profile-name">{data.name}</div>
                 <p class="about about-top">E-mail Id: <span>{data.email} </span><br /></p>
@@ -263,7 +268,7 @@ const Profile = () => {
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={handleClose}>
                                     Close
-                        </Button>
+                        </Button>{"  "}
                                 <Button variant="primary" onClick={onSubmit}>
                                     Submit
                         </Button>

@@ -1,4 +1,5 @@
   
 {
-    "BASE": "https://excal.herokuapp.com"
+    "BASE": "https://excal.herokuapp.com",
+    "IMAGE_URL": "https://res.cloudinary.com/studentmohinesh/image/upload/v1605189801/"
 }
