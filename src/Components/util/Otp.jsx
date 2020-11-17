@@ -25,8 +25,7 @@ const Otp = (props) => {
         }
         try{
             const res = await axios({
-                url: `${config.BASE}/user/signup/
-                `,
+                url: `${config.BASE}/user/signup/`,
                 method: "POST",
                 data: postData
             })
@@ -64,7 +63,7 @@ const Otp = (props) => {
             
         }else{
             console.log(md5(otp));
-            window.alert("OTP does not atch Please try again");
+            window.alert("OTP does not match Please try again");
         }
     }
     if(page === 2)
@@ -123,8 +122,9 @@ const Otp = (props) => {
                     <div className="col s12 offset-m3 m6">
                         <div class="card signupBox">
                             <div class="card-content white-text center-align">
-                                
+                            <div className="swyamHeading" >SWYAMKRITI</div><br/>
                                 <h1 className="signupHeading">OTP</h1>
+                                <p>One-time Password has been sent to your entered email address, Kindly fill it below</p>
                                 <div class="input-field">
                                     <input id="otp" 
                                         type="text" 

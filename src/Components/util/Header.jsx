@@ -29,7 +29,7 @@ return(
   >
     {state.isAuth?
         <>
-            <NavItem className="white-text waves-effect waves-light header-btn btn"><Link to='/login'>
+            <NavItem className="white-text waves-effect waves-light header-btn btn"><Link to='/profile'>
             Profile</Link>
             </NavItem>
             <NavItem  className="white-text waves-effect waves-light header-btn btn"><Link to='/logout'>

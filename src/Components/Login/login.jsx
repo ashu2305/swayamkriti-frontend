@@ -100,7 +100,7 @@ const Login = () => {
                     <div className="col s12 offset-m3 m6">
                         <div class="card loginBox">
                             <div class="card-content white-text center-align">
-                                
+                                <div className="swyamHeading" >SWYAMKRITI</div><br/>
                                 <h1 className="loginHeading">Login</h1>
                                 <div class="input-field">
                                     <input id="email" 

@@ -1,7 +1,6 @@
 import React, {useState} from "react"
 import "./signup.css";
 import axios from 'axios';
-
 import {Link} from "react-router-dom"
 import Particles from "react-particles-js"
 import Otp from '../util/Otp';
@@ -69,17 +68,22 @@ const Signup = () => {
 
         e.preventDefault();
         if(data.password === data.confirmPassword){
-            if(data.email !== '' && data.password !== '' && data.confirmPassword !== '' && data.name !== '' && data.rollNo !== ''  ){
-                if(isEmail(data.email)){
-                    setLoad(true);
-                    otpSent();
-                    console.log("verified");
-                    
+            console.log(data.password.length );
+            if(data.password.length >= 6){
+                if(data.email !== '' && data.password !== '' && data.confirmPassword !== '' && data.name !== '' && data.rollNo !== ''  ){
+                    if(isEmail(data.email)){
+                        setLoad(true);
+                        otpSent();
+                        console.log("verified");
+                        
+                    }else{
+                        setError(2);
+                    }
                 }else{
-                     setError(2);
+                    setError(1);
                 }
             }else{
-                setError(1);
+                setError(5);
             }
         }else{
             console.log("pass error");
@@ -101,7 +105,7 @@ const Signup = () => {
                     <div className="col s12 offset-m3 m6">
                         <div class="card signupBox">
                             <div class="card-content white-text center-align">
-                                
+                            <div className="swyamHeading" >SWYAMKRITI</div><br/>
                                 <h1 className="signupHeading">Sign Up</h1>
                                 <div class="input-field">
                                     <input id="name"
@@ -153,6 +157,7 @@ const Signup = () => {
                                     />
                                     <label htmlFor="rollNo">Roll No.</label>
                                 </div>
+                               <div class="input-field"><select ><option>hello</option></select></div>
                                 {load===false ?
                                     <button class="btn waves-effect waves-light" type="submit" onClick={onSubmit} name="action">SignUp
                                         <i class="material-icons right">
@@ -172,6 +177,9 @@ const Signup = () => {
                                 }
                                 {error === 3 &&
                                     <p  className="error center-align">Password not match</p>
+                                }
+                                {error === 5 &&
+                                    <p  className="error center-align">[password length must be six or more]</p>
                                 }
                                 
                             </div>

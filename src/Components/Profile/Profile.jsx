@@ -1,4 +1,5 @@
 import React, { useState, useEffect} from 'react';
+import {Redirect} from 'react-router-dom';
 import './profile.css';
 import axios from 'axios';
 import config from '../../config.json';
@@ -6,7 +7,8 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import Select from 'react-select'
-import skillsFile from "./skills.json"
+import skillsFile from "./skills.json";
+import Header from '../util/Header';
 const Profile = () => {
     const [user, setUser] = useState({
 
@@ -22,7 +24,13 @@ const Profile = () => {
         email:'',
         gender:'',
         name:''
-    })
+    });
+    
+    const [show, setShow] = useState(false);
+
+    const [error, setError] = useState(0);
+    //0 no error
+    //1 unauthorized
     
     const skillsSet=skillsFile
     
@@ -60,12 +68,20 @@ const Profile = () => {
                 }
             }
             catch (error) {
+                console.log(error.response);
+                if(error.response.status === 401){
+                    setError(1);
+                }
                 console.log(error);
             }
         };
         getUser();
         
     }, []);
+    if(error === 1)
+    {
+        return (<Redirect to='/logout' />);
+    }
 
     const fileChange = e => {
         let filex = e.target.files[0]
@@ -115,7 +131,6 @@ const Profile = () => {
             [e.target.name]: e.target.value
         });
     };
-    const [show, setShow] = useState(false);
 
     const handleClose = () => {
         setShow(false);
@@ -132,8 +147,9 @@ const Profile = () => {
         
     }
     console.log(data);
-    return (
+    return (<><Header />
         <div className="prof-back">
+            
             <div class="prof-container">
                 <div class="cover-photo">
                     <img src="https://images.unsplash.com/photo-1565464027194-7957a2295fb7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80" class="profile" />
@@ -287,7 +303,7 @@ const Profile = () => {
                 </button>
 
             </div>
-        </div>
+        </div></>
     )
 }
 

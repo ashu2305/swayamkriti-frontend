@@ -78,7 +78,7 @@ const CreatePassword=(props)=> {
                     <div className="col s12 offset-m3 m6">
                         <div class="card forgotpasswordBox">
                             <div class="card-content white-text center-align">
-                                
+                            <div className="swyamHeading" >SWYAMKRITI</div><br/>
                                 <h1 className="forgotpasswordHeading">Change Password</h1>
                                 <div class="input-field">
                                     <input id="password" 

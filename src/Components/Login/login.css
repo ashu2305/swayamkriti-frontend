@@ -22,3 +22,19 @@
 .error{
     color: red;;
 }
+
+.btn, .btn-large, .btn-small {
+    color: white  !important;
+    background-color: #26a69a !important;
+
+}
+
+.btn:hover, .btn-large:hover, .btn-small:hover {
+    color: black !important ;
+
+}
+
+.swyamHeading{
+    font-size: 40px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
