@@ -1,5 +1,5 @@
 [
-    {"value":"A/B Testing", "label":"A/B Testing"},
+{"value":"A/B Testing", "label":"A/B Testing"},
 {"value":"ABAP", "label":"ABAP"},
 {"value":"ALGOL", "label":"ALGOL"},
 {"value":"APL", "label":"APL"},
@@ -66,7 +66,8 @@
 {"value":"Feature Definition", "label":"Feature Definition"},
 {"value":"Financial Modelling", "label":"Financial Modelling"},
 {"value":"Forecasting", "label":"Forecasting"},
-{"value":"Front-End & Back-End Development", "label":"Front-End & Back-End Development"},
+{"value":"Front-End Development", "label":"Front-End Development"},
+{"value":"Back-End Development","label":"Back-End Development"},
 {"value":"Functional Programming", "label":"Functional Programming"},
 {"value":"Glucose Checks", "label":"Glucose Checks"},
 {"value":"Go", "label":"Go"},
