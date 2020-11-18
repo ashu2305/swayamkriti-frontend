@@ -11,6 +11,7 @@ import Profile from './Components/Profile/Profile';
 import Logout from './Components/util/Logout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Mentor from './Components/Mentor/Mentor'
+import BuynSell from './Components/BuynSell/BuynSell';
 
 function App() {
   const initState = useContext(Store);
@@ -25,6 +26,7 @@ function App() {
           <Route path="/forgotpassword" component={ForgotPassword} />
           <Route path="/logout" component={Logout} />
           <Route path ="/mentor" component = {Mentor} />
+          <Route path ="/sell" component = {BuynSell} />
           <Route path="/" component={Home} />
         </Switch>
       </BrowserRouter>
