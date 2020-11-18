@@ -1,0 +1,39 @@
+.filter select{
+    display: inline-block;
+    width: 100px;
+    border-radius: 20px!important;
+    background-color: white;
+    outline: none;
+}
+.filter select:hover{
+    cursor: pointer;
+}
+.filter select option{
+    width: 100px!important;
+    padding: 10px;
+}
+.modal-box{
+    width: 30%;
+}
+.modal-trigger
+{
+    margin-left: 10px;
+}
+@media screen and (max-width:660px)
+{
+    .filter select
+    {
+        width: 90%;
+        margin: auto 5%;
+        background-color: white;
+    }
+    .modal-box{
+        width: 90%;
+    }
+    .modal-trigger{
+        
+        width: 90%;
+        margin: auto 5%;
+    }
+}
+
