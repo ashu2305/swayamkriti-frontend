@@ -1,14 +1,17 @@
-.filter select{
+.filterSell select{
     display: inline-block;
-    width: 100px;
     border-radius: 20px!important;
     background-color: white;
     outline: none;
 }
-.filter select:hover{
+.filterSell{
+    display: inline-block;
+    
+}
+.filterSell select:hover{
     cursor: pointer;
 }
-.filter select option{
+.filterSell select option{
     width: 100px!important;
     padding: 10px;
 }
@@ -21,7 +24,7 @@
 }
 @media screen and (max-width:660px)
 {
-    .filter select
+    .filterSell select
     {
         width: 90%;
         margin: auto 5%;
@@ -32,7 +35,6 @@
     }
     .modal-trigger{
         
-        width: 90%;
         margin: auto 5%;
     }
 }
