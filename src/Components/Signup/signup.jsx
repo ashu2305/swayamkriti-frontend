@@ -73,11 +73,19 @@ const Signup = () => {
     const onSubmit = e =>{
 
         e.preventDefault();
+<<<<<<< HEAD
         console.log(data);
         if(data.password === data.confirmPassword){
             console.log(data.password.length );
             if(data.email !== '' && data.password !== '' && data.confirmPassword !== '' && data.name !== '' && data.gender !== ''  ){
                 if(data.password.length >= 6){
+=======
+        console.log(data)
+        if(data.password === data.confirmPassword){
+            console.log(data.password.length );
+            if(data.password.length >= 6){
+                if(data.email !== '' && data.password !== '' && data.confirmPassword !== '' && data.name !== '' && data.gender !== ''  ){
+>>>>>>> 38ffe8b651d30543c61341735432ae0ac2984384
                     if(isEmail(data.email)){
                         setLoad(true);
                         console.log("verified");
@@ -161,11 +169,19 @@ const Signup = () => {
                                     <label htmlFor="confirmPassword">Confirm Password</label>
                                 </div>
                                 <div class="input-field">
+<<<<<<< HEAD
                                         <select name="gender" onKeyDown={handleKeyDown} onChange={handleChange} style={{display:"inline-block"}}>
                                             <option value="" disabled selected>Choose your gender</option>
                                             <option value="M">Male</option>
                                             <option value="F">Female</option>
                                             <option value="F">Transgender</option>
+=======
+                                        <select style={{display:"inline-block"}} name="gender" onChange={handleChange}>
+                                            <option value="" disabled selected>Choose your gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="transgender">Transgender</option>
+>>>>>>> 38ffe8b651d30543c61341735432ae0ac2984384
                                         </select>
                                     </div>
                                 {load===false ?
