@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
+/* @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
 * {
 	box-sizing: border-box;
 }
-
+*/
 .sell-background {
-	background-color: #28223F;
+	background-color: #16161a;
 	font-family: Montserrat, sans-serif;
 	
 	display: flex;
@@ -16,7 +16,7 @@
 	min-height: 100vh;
 	margin: 0;
 }
-
+/*
 .card-container h3 {
 	margin: 10px 0;
 }
@@ -99,4 +99,54 @@
 	margin: 0 7px 7px 0;
 	padding: 7px;
 }
+ */
 
+ .cardSell{
+	 width: 20vw;
+	 margin: 10px auto!important;
+	box-shadow: 0 2px 5px #94a1b2;
+	border: none;
+ }
+ .cardSell:hover{
+	 box-shadow: 0 0 15px #94a1b2;
+	 cursor: pointer;
+ }
+ .cardSell .card-content
+ {
+	 background-color: #242629;
+ }
+ .cardSell button{
+	 background-color: #7f5af0!important;
+	 color:#fffffe!important;
+ }
+ .cardSell .card-action
+ {
+	 background-color: #242629;
+ }
+.sellImage img{
+	object-fit: contain;
+	width: 90%!important;
+	margin: auto;
+	height: 300px;
+}
+.sellImage{
+	background-color: #16161a;
+}
+ @media screen and (max-width:660px)
+ {
+	 .cardSell{
+		 width: 80vw;
+		 margin: auto;
+	 }
+ }
+
+ .search-area
+ {
+	 width: 70%!important;
+	 display: inline-block;
+	 margin-top: 30px;
+ }
+ .modal-trigger
+ {
+	 display: inline-block;
+ }
