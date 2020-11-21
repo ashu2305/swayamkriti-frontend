@@ -28,6 +28,12 @@ const Login = () => {
         });
     };
 
+    const handleKeyDown = (e)=>{
+        if (e.key === 'Enter') {
+          onSubmit(e);
+        }
+    }
+
     const verify = async() => {
         const postData = {
             username : data.email,
@@ -110,6 +116,7 @@ const Login = () => {
                                         name='email'
                                         onChange={handleChange}
                                         required='required' 
+                                        onKeyDown={handleKeyDown}
                                     />
                                     <label for="email">Email</label>
                                 </div>
@@ -119,7 +126,8 @@ const Login = () => {
                                         class="validate white-text" 
                                         name='password'
                                         onChange={handleChange}
-                                        required='required'     
+                                        required='required' 
+                                        onKeyDown={handleKeyDown}    
                                     />
                                     <label for="password">Password</label>
                                 </div>

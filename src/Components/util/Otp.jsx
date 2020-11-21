@@ -21,7 +21,7 @@ const Otp = (props) => {
             email : props.data.email,
             password: props.data.password,
             name: props.data.username,
-            gender: "M"
+            gender: props.data.gender
         }
         try{
             const res = await axios({

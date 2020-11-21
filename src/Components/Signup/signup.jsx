@@ -13,7 +13,7 @@ const Signup = () => {
         password:'',
         confirmPassword: '', 
         username:'',
-        rollNo:'',
+        gender:'',
     });
 
     const[OTP, setOTP] = useState('');
@@ -28,6 +28,12 @@ const Signup = () => {
             [e.target.name]: e.target.value
         });
     };
+
+    const handleKeyDown = (e)=>{
+        if (e.key === 'Enter') {
+          onSubmit(e);
+        }
+    }
 
     const otpSent = async() => {
         const postData = {
@@ -67,23 +73,25 @@ const Signup = () => {
     const onSubmit = e =>{
 
         e.preventDefault();
+        console.log(data);
         if(data.password === data.confirmPassword){
             console.log(data.password.length );
-            if(data.password.length >= 6){
-                if(data.email !== '' && data.password !== '' && data.confirmPassword !== '' && data.name !== '' && data.rollNo !== ''  ){
+            if(data.email !== '' && data.password !== '' && data.confirmPassword !== '' && data.name !== '' && data.gender !== ''  ){
+                if(data.password.length >= 6){
                     if(isEmail(data.email)){
                         setLoad(true);
-                        otpSent();
                         console.log("verified");
+                        otpSent();
+                        
                         
                     }else{
                         setError(2);
                     }
                 }else{
-                    setError(1);
+                    setError(5);
                 }
             }else{
-                setError(5);
+                setError(1);
             }
         }else{
             console.log("pass error");
@@ -114,6 +122,7 @@ const Signup = () => {
                                         name='username'
                                         onChange={handleChange}
                                         required='required' 
+                                        onKeyDown={handleKeyDown}
                                     />
                                     <label htmlFor="name">Name</label>
                                 </div>
@@ -124,6 +133,7 @@ const Signup = () => {
                                         name='email'
                                         onChange={handleChange}
                                         required='required' 
+                                        onKeyDown={handleKeyDown}
                                     />
                                     <label htmlFor="email">Email</label>
                                 </div>
@@ -133,7 +143,8 @@ const Signup = () => {
                                         class="validate white-text" 
                                         name='password'
                                         onChange={handleChange}
-                                        required='required'     
+                                        required='required'    
+                                        onKeyDown={handleKeyDown} 
                                     />
                                     <label htmlFor="password">Password</label>
                                 </div>
@@ -145,15 +156,16 @@ const Signup = () => {
                                         name='confirmPassword'
                                         onChange={handleChange}
                                         required='required' 
+                                        onKeyDown={handleKeyDown}
                                     />
                                     <label htmlFor="confirmPassword">Confirm Password</label>
                                 </div>
                                 <div class="input-field">
-                                        <select style={{display:"inline-block"}}>
+                                        <select name="gender" onKeyDown={handleKeyDown} onChange={handleChange} style={{display:"inline-block"}}>
                                             <option value="" disabled selected>Choose your gender</option>
-                                            <option value="1">Male</option>
-                                            <option value="2">Female</option>
-                                            <option value="3">Transgender</option>
+                                            <option value="M">Male</option>
+                                            <option value="F">Female</option>
+                                            <option value="F">Transgender</option>
                                         </select>
                                     </div>
                                 {load===false ?
