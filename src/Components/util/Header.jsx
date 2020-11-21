@@ -11,7 +11,7 @@ const Header = () =>{
 return(
   <Navbar
   alignLinks="right"
-  brand={<a className="brand-logo s-logo" ><img src={logo} height="40" width="40"/><h3 className="heading">SwayamKriti</h3></a>}
+  brand={<a className="brand-logo s-logo" ><img src={logo} height="40" width="40"/><h3 className="heading"><Link className="no-link" to="/">SwayamKriti</Link></h3></a>}
   id="mobile-nav"
   menuIcon={<Icon>menu</Icon>}
   options={{

@@ -1,17 +1,19 @@
 import React, { useEffect,useState } from 'react'
 import "./sell.css"
-import Header from "./Header"
+import Header from "../util/Header"
 import "./Header.css"
 import { Autocomplete, Icon, Modal, Button,TextInput } from "react-materialize"
 import axios from 'axios'
 import { BASE, IMAGE_URL } from "../../config.json"
 const BuynSell = () => {
 	const [products, SetProducts] = useState([]);
-	const [originalproducts, SetOriginalProducts] = useState([])
+	const [allProducts, SetAllProducts] = useState([]);
+	const [originalproducts, SetOriginalProducts] = useState([]);
+	const [search , setSearch]  = useState("");
 	const [data,setData] = useState({
 		pname:"",
 		desc:"",
-		prize:"",
+		price:"",
 		pimage:'kcn2vbzm3c6lrqxliaw3'
 	})
 	useEffect(() => {
@@ -25,7 +27,8 @@ const BuynSell = () => {
 						Authorization: `Bearer ${localStorage.FBIdToken}`
 					}
 				});
-				SetProducts(res.data.result);
+				//SetProducts(res.data.result);
+				SetAllProducts(res.data.result);
 				SetOriginalProducts(res.data.result);
 			}
 			catch (err) {
@@ -57,7 +60,7 @@ const BuynSell = () => {
 			formData.append('desc',data.desc);
 			formData.append('isshow','T');
 			formData.append('image',data.pimage);
-			formData.append('prize',data.prize);
+			formData.append('price',data.price);
 			const result = await axios({
                 url: `${BASE}/user/buysell/`,
                 method: "POST",
@@ -74,14 +77,23 @@ const BuynSell = () => {
 	const changeProductlist= async(e) =>
 	{
 		const value = e.target.value;
-		if(value=="")
-		SetProducts(products);
-		const res = await originalproducts.filter(item=>{
-			if(item.pname.toLowerCase().startsWith(value.toLowerCase()))
-			return item
-		})
+		setSearch(value);
+		if(value==""){
+			SetAllProducts(products);
+			SetProducts([]);
+		}else{
+			const res = await originalproducts.filter(item=>{
+				if(item.pname.toLowerCase().includes(value.toLowerCase()))
+				return item;
+			})
+			const res2 = await originalproducts.filter(item=>{
+				if(!item.pname.toLowerCase().includes(value.toLowerCase()))
+				return item;
+			})
+			SetAllProducts(res2);
+			SetProducts(res);
+		}
 		
-		SetProducts(res)
 	}
 	
 	return (
@@ -134,7 +146,7 @@ const BuynSell = () => {
 								</div>
 
 								<div class="input-field">
-									<input id="price" type="text" class="validate" name="prize"  onChange={handleChange}/>
+									<input id="price" type="text" class="validate" name="price"  onChange={handleChange}/>
 									<label for="price">Price</label>
 								</div>
 								<div class="file-field input-field">
@@ -150,14 +162,65 @@ const BuynSell = () => {
 						</div>
 
 					</div>
+					{products.length === 0 && search !== '' && 
+						<>
+							<div className="row">
+							<div style={{margin: "auto"}}>
+								<h2 style={{color: "white"}}>Searched Product</h2></div>
+							</div>
+							<div className="row">
+							<div style={{margin: "auto"}}>
+								<h1 style={{color: "white"}}>No Search Found</h1></div>
+							</div>
+						</>
+					}
+					{products.length >0 && 
+						<>
+						<div className="row">
+						<div style={{margin: "auto"}}>
+							<h2 style={{color: "white"}}>Searched Product</h2></div>
+						</div>
+						<div className="row">
+							
+							{
+								products.map(item => {
+									if (item.isshow == "T") {
+										return (
+											<div class="card cardSell">
+												<div class="card-image sellImage">
+													<img src={`${IMAGE_URL}${item.pimage}`} />
+
+												</div>
+												<div class="card-content white-text">
+													<span class="card-title">{item.pname}</span>
+													<p>{item.desc}</p>
+													<h6>₹{item.price}</h6>
+												</div>
+												<div class="card-action">
+													<button href="#" className="waves-effect waves-light btn">BUY</button>
+												</div>
+											</div>
+
+										)
+									}
+								})
+							}
+
+						</div>
+						</>
+					}
+					<div className="row">
+					<div style={{margin: "auto"}}>
+							<h2 style={{color: "white"}}>All Products</h2></div>
+					</div>
 					<div className="row">
 						{
-							products.map(item => {
+							allProducts.map(item => {
 								if (item.isshow == "T") {
 									return (
 										<div class="card cardSell">
 											<div class="card-image sellImage">
-												<img src={`${IMAGE_URL}${item.image}`} />
+												<img src={`${IMAGE_URL}${item.pimage}`} />
 
 											</div>
 											<div class="card-content white-text">

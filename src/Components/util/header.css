@@ -45,3 +45,8 @@
 .header-btn:hover{
 	background-color:black !important;
 }
+
+.no-link{
+	text-decoration: none !important;
+	color: white !important;
+}
