@@ -8,9 +8,9 @@ const Header = () =>{
     return(
         <Navbar
   alignLinks="right"
-  brand={<a className="brand-logo s-logo" ><img src={logo} height="40" width="40"/><h3 className="heading">SwayamKriti</h3></a>}
+  brand={<a className="brand-logo s-logo" ><img src={logo} height="40" width="40"/><h3 className="heading black-text">SwayamKriti</h3></a>}
   id="mobile-nav"
-  menuIcon={<Icon>menu</Icon>}
+  menuIcon={<Icon className="black-text">menu</Icon>}
   options={{
     draggable: true,
     edge: 'left',
@@ -22,31 +22,9 @@ const Header = () =>{
     outDuration: 200,
     preventScrolling: true
   }}
-  className="black"
+  className="white"
   >
-      <Autocomplete
-  icon={<Icon>search</Icon>}
-  id="Autocomplete-1"
-  options={{
-    data: {
-      'Gus Fring': null,
-      'Saul Goodman': null,
-      'Tuco Salamanca': 'https://placehold.it/250x250'
-    }
-  }}
-  placeholder="Search"
-  style={{color:"white"}}
-  
-/>
-<div class="filter">
-    <select>
-      <option value="" disabled selected>Filter</option>
-      <option value="year">Year</option>
-      <option value="branch">Branch</option>
-      <option value="skill">Skill</option>
-      <option value="aoi">Area of interest</option>
-    </select>
-  </div>
+      
      <>
      
             <NavItem className="white-text waves-effect waves-light header-btn btn"><Link to='/profile'>

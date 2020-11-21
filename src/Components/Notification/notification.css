@@ -1,0 +1,28 @@
+.notification-background{
+    background-color: #28223F;
+    padding-top: 10vh;
+}
+.notification-box
+{
+    height: 90vh;
+}
+.description-box
+{
+    display: inline-block;
+    width: 70%;
+}
+
+.preview-box{
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+}
+.preview-box img{
+    width: 60%;
+    margin: auto;
+}
+.notification-block:nth-child(odd)
+{
+    background-color: rgb(240, 240, 240);
+    margin: auto 0;
+}

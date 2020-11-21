@@ -13,7 +13,7 @@ const Signup = () => {
         password:'',
         confirmPassword: '', 
         username:'',
-        rollNo:'',
+        gender:'',
     });
 
     const[OTP, setOTP] = useState('');
@@ -67,10 +67,11 @@ const Signup = () => {
     const onSubmit = e =>{
 
         e.preventDefault();
+        console.log(data)
         if(data.password === data.confirmPassword){
             console.log(data.password.length );
             if(data.password.length >= 6){
-                if(data.email !== '' && data.password !== '' && data.confirmPassword !== '' && data.name !== '' && data.rollNo !== ''  ){
+                if(data.email !== '' && data.password !== '' && data.confirmPassword !== '' && data.name !== '' && data.gender !== ''  ){
                     if(isEmail(data.email)){
                         setLoad(true);
                         otpSent();
@@ -149,11 +150,11 @@ const Signup = () => {
                                     <label htmlFor="confirmPassword">Confirm Password</label>
                                 </div>
                                 <div class="input-field">
-                                        <select style={{display:"inline-block"}}>
+                                        <select style={{display:"inline-block"}} name="gender" onChange={handleChange}>
                                             <option value="" disabled selected>Choose your gender</option>
-                                            <option value="1">Male</option>
-                                            <option value="2">Female</option>
-                                            <option value="3">Transgender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="transgender">Transgender</option>
                                         </select>
                                     </div>
                                 {load===false ?
