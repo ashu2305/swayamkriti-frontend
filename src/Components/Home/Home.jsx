@@ -58,7 +58,7 @@ const Home = () => {
 
                     <div class="box two">
                         <div class="know_more">
-                           <Link to=""><h4>Know more</h4></Link>
+                           <Link to="/sell"><h4>Know more</h4></Link>
                         </div>
                         <h1>BUY-SELL</h1>
                         <div class="poster p2">

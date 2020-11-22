@@ -52,9 +52,10 @@ const Profile = () => {
                     let input = res.data.result;
                     console.log(input.skills);
                     let y=[];
-                    if(input.skills=== "undefined"){
+                    if(input.skills!== "undefined"){
                     let x = input.skills.split(' : ');
                     x.map((item)=>(y.push({value: item, label: item})));}
+                    console.log(y);
                     setData({
                         rollno: input.rollno?input.rollno:"",
                         branch: input.branch?input.branch:"",
@@ -98,16 +99,18 @@ const Profile = () => {
     const submit = async () => {
         try {
             let y=[];
+            let x;
             if(data.skills.length > 0 ){
             data.skills.map((item)=>(y.push(item.value)));
 
-            const x = y.join(' : ');}
+            x = y.join(' : ');}
+
             const formData = new FormData();
             formData.append( 'branch', data.branch);
             formData.append('year', data.year);
             formData.append('rollno',data.rollno);
             formData.append('prog', data.program);
-            formData.append('skills', y);
+            formData.append('skills', x);
             formData.append('areaofinterest', data.areaofinterest);
             formData.append('image', data.image);
             
