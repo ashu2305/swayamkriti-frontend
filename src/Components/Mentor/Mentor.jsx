@@ -39,30 +39,28 @@ const Mentor = () => {
 		}
 		getmentors();
 	}, [])
-	const changeMentorlist = async (e)=>{
+	const changeMentorlist = async (e) => {
 		await setSearch(e.target.value)
-		if(filter!="")
-		{
-			const res = originalmentors.filter(mentor=>{
-				if(filter=="year"||filter=="branch")
-					{if(mentor[filter].toLowerCase().includes(e.target.value.toLowerCase())&&mentor[filter]!="")
-					return mentor}
-				else
-				{
-					var val=false;
-					for(var i=0;i<mentor[filter].length;i++)
-					if(mentor[filter][i].toLowerCase().includes(e.target.value.toLowerCase()))
-					{
-						val=true;
-						break;
-					}
-					if(val)
-					return mentor
-						
-				}	
+		if (filter != "") {
+			const res = originalmentors.filter(mentor => {
+				if (filter == "year" || filter == "branch" ||filter == "name") {
+					if (mentor[filter].toLowerCase().includes(e.target.value.toLowerCase()) && mentor[filter] != "")
+						return mentor
+				}
+				else {
+					var val = false;
+					for (var i = 0; i < mentor[filter].length; i++)
+						if (mentor[filter][i].toLowerCase().includes(e.target.value.toLowerCase())) {
+							val = true;
+							break;
+						}
+					if (val)
+						return mentor
+
+				}
 			})
 			Setmentors(res)
-			
+
 		}
 	}
 	return (
@@ -74,12 +72,13 @@ const Mentor = () => {
 						<div className="col s12 m12 center-align">
 							<div class="input-field search-area">
 								<i class="material-icons prefix">search</i>
-								<input id="search-product" type="text" class="validate white-text" onChange={(e)=>{ changeMentorlist(e);}} />
+								<input id="search-product" type="text" class="validate white-text" onChange={(e) => { changeMentorlist(e); }} />
 								<label for="search-product">Search</label>
 							</div>
 							<div class="mentorfilter center-align">
-								<select value={filter} onChange={async (e) => {await SetFilter(e.target.value)}}>
+								<select value={filter} onChange={async (e) => { await SetFilter(e.target.value) }}>
 									<option value="" disabled selected>Filter</option>
+									<option value="name">Name</option>
 									<option value="year">Batch Year</option>
 									<option value="branch">Branch</option>
 									<option value="skills">Skill</option>
@@ -88,29 +87,32 @@ const Mentor = () => {
 							</div>
 						</div>
 					</div>
-					
+
 					<div className="row">
 						{
-							mentors.length>0&&search!=""&&<h2 style={{margin:"auto",color:"white"}}>Searched Mentors</h2>
-							}
-						</div>
-						<div className="row">
-						{search!=""&&
-						mentors.map(mentor => {
+							mentors.length > 0 && search != "" && <h2 style={{ margin: "auto", color: "white" }}>Searched Mentors</h2>
+						}
+						{
+							mentors.length == 0 && search != "" &&<> 
+							<h3 style={{ margin: "auto", color: "white" }}>No search found</h3></>
+						}
+					</div>
+					<div className="row">
+						{search != "" &&
+							mentors.map(mentor => {
 								return (
 
 
 									<div class="card-container">
-										<span class="pro">PRO</span>
 										<img class="round" src={`${IMAGE_URL}${mentor.image}`} alt="user" />
 										<h3>{mentor.name}</h3>
 										<h6>{mentor.branch}</h6>
 										<p>{mentor.year}</p>
 										<div class="buttons">
-											<a  href={`mailto:${mentor.email}`} class="primary">
+											<a href={`mailto:${mentor.email}`} class="primary">
 												Email
 		</a>
-				
+
 										</div>
 										<div class="skills">
 											<h6>Skills</h6>
@@ -139,14 +141,29 @@ const Mentor = () => {
 								)
 							})
 						}  </div>
-						<div className="row">
-						{
-							allmentors.length>0&&<h2 style={{margin:"auto",color:"white"}}>All Mentors</h2>
-							}
-						</div>
 					<div className="row">
-						
-						
+						{
+							allmentors.length > 0 && <h2 style={{ margin: "auto", color: "white" }}>All Mentors</h2>
+						}
+					</div>
+					<div className="row">
+
+						{
+							allmentors.length == 0 && <>
+								<div class="preloader-wrapper small active sell-loader">
+									<div class="spinner-layer spinner-green-only">
+										<div class="circle-clipper left">
+											<div class="circle"></div>
+										</div><div class="gap-patch">
+											<div class="circle"></div>
+										</div><div class="circle-clipper right">
+											<div class="circle"></div>
+										</div>
+									</div>
+								</div>
+
+							</>
+						}
 
 						{
 							allmentors.map(mentor => {
@@ -154,7 +171,6 @@ const Mentor = () => {
 
 
 									<div class="card-container">
-										<span class="pro">PRO</span>
 										<img class="round" src={`${IMAGE_URL}${mentor.image}`} alt="user" />
 										<h3>{mentor.name}</h3>
 										<h6>{mentor.branch}</h6>
@@ -163,7 +179,7 @@ const Mentor = () => {
 											<a href={`mailto:${mentor.email}`} class="primary">
 												Email
 		</a>
-				
+
 										</div>
 										<div class="skills">
 											<h6>Skills</h6>
@@ -177,7 +193,7 @@ const Mentor = () => {
 												}
 											</ul>
 										</div>
-										<div class="skills">
+										<div class="aoi">
 											<h6>Area of Interest</h6>
 											<ul>{
 												mentor.areaofinterest.map(interest => {
@@ -191,8 +207,8 @@ const Mentor = () => {
 									</div>
 								)
 							})
-						} </div> 
-				
+						} </div>
+
 				</div>
 			</div>
 		</>

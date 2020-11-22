@@ -8,10 +8,10 @@
     user-select: none;
     margin: auto;
     background: #231e39;
-    margin-left: 10vw;
+    margin-left: 4vw;
     color: #b3b8cd;
     border-radius: 5px;
-    width: 80vw;
+    width: 92vw;
     padding-bottom: 20px;;
     height: auto;
     text-align: center;
@@ -35,7 +35,18 @@
   .profile-name{
     font-size: 25px;
     font-weight: bold;
-    margin: 27px 0 0 120px;
+    margin: 27px 0 0 150px;
+  }
+  @media screen and (max-width:660px)
+  {
+    .profile{
+      margin:auto;
+      margin-top: 10px
+    }
+    .profile-name{
+      font-size: 8vw;
+      margin: auto;
+    }
   }
   .about-top{
     margin-top: 35px !important;;
