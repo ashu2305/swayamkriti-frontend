@@ -30,6 +30,7 @@ const BuynSell = () => {
 				//SetProducts(res.data.result);
 				SetAllProducts(res.data.result);
 				SetOriginalProducts(res.data.result);
+				console.log(res )
 			}
 			catch (err) {
 				console.log(err)
@@ -79,7 +80,7 @@ const BuynSell = () => {
 		const value = e.target.value;
 		setSearch(value);
 		if(value==""){
-			SetAllProducts(products);
+			SetAllProducts(originalproducts);
 			SetProducts([]);
 		}else{
 			const res = await originalproducts.filter(item=>{
@@ -197,7 +198,7 @@ const BuynSell = () => {
 													<h6>₹{item.price}</h6>
 												</div>
 												<div class="card-action">
-													<button href="#" className="waves-effect waves-light btn">BUY</button>
+													<a href={`mailto:${item.email}?subject=Buy item (${item.pname}) from Swyamkriti`} className="waves-effect waves-light btn">BUY</a>
 												</div>
 											</div>
 
@@ -214,6 +215,22 @@ const BuynSell = () => {
 							<h2 style={{color: "white"}}>All Products</h2></div>
 					</div>
 					<div className="row">
+					{
+								allProducts.length==0&&<>
+								<div class="preloader-wrapper small active sell-loader">
+    <div class="spinner-layer spinner-green-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+        
+								</>
+							}
 						{
 							allProducts.map(item => {
 								if (item.isshow == "T") {
@@ -229,7 +246,7 @@ const BuynSell = () => {
 												<h6>₹{item.price}</h6>
 											</div>
 											<div class="card-action">
-												<button href="#" className="waves-effect waves-light btn">BUY</button>
+												<a href={`mailto:${item.email}?subject=Buy item (${item.pname}) from Swyamkriti`} className="waves-effect waves-light btn">BUY</a>
 											</div>
 										</div>
 

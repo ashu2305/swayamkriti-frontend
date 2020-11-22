@@ -114,8 +114,9 @@
  .cardSell .card-content
  {
 	 background-color: #242629;
+	 height: 100%;
  }
- .cardSell button{
+ .cardSell a{
 	 background-color: #7f5af0!important;
 	 color:#fffffe!important;
  }
@@ -149,4 +150,8 @@
  .modal-trigger
  {
 	 display: inline-block;
+ }
+ .sell-loader
+ {
+	 margin: auto;
  }
