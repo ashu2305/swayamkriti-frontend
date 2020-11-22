@@ -29,10 +29,13 @@ return(
   >
     {state.isAuth?
         <>
-            <NavItem className="white-text waves-effect waves-light purple darken-2 btn"><Link to='/profile'>
+            <NavItem className="white-text waves-effect waves-light pink darken-2 btn"><Link style={{color:"white"}} to='/'>
+            Home</Link>
+            </NavItem>
+            <NavItem className="white-text waves-effect waves-light purple darken-2 btn"><Link style={{color:"white"}} to='/profile'>
             Profile</Link>
             </NavItem>
-            <NavItem  className="white-text waves-effect waves-light  btn"><Link to='/logout'>
+            <NavItem  className="white-text waves-effect waves-light  btn"><Link style={{color:"white"}} to='/logout'>
               Logout</Link>
             </NavItem>
         </>

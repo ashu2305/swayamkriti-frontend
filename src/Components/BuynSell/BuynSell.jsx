@@ -243,7 +243,7 @@ const BuynSell = () => {
 											<div class="card-content white-text">
 												<span class="card-title">{item.pname}</span>
 												<p>{item.desc}</p>
-												<h6>₹{item.price}</h6>
+												<h4>₹{item.price}</h4>
 											</div>
 											<div class="card-action">
 												<a href={`mailto:${item.email}?subject=Buy item (${item.pname}) from Swyamkriti`} className="waves-effect waves-light btn">BUY</a>
