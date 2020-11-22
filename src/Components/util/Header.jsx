@@ -29,19 +29,19 @@ return(
   >
     {state.isAuth?
         <>
-            <NavItem className="white-text waves-effect waves-light header-btn btn"><Link to='/profile'>
+            <NavItem className="white-text waves-effect waves-light purple darken-2 btn"><Link to='/profile'>
             Profile</Link>
             </NavItem>
-            <NavItem  className="white-text waves-effect waves-light header-btn btn"><Link to='/logout'>
+            <NavItem  className="white-text waves-effect waves-light  btn"><Link to='/logout'>
               Logout</Link>
             </NavItem>
         </>
         :
         <>
-            <NavItem href="/login" className="white-text waves-effect waves-light header-btn btn">
+            <NavItem href="/login" className="white-text waves-effect waves-light  darken-2 btn">
               Login
             </NavItem>
-            <NavItem href="/signup" className="white-text waves-effect waves-light header-btn btn">
+            <NavItem href="/signup" className="white-text waves-effect waves-light  btn">
               SignUp
             </NavItem>
         </>
