@@ -2,7 +2,9 @@
     font-family: Montserrat, sans-serif;
     background: #28223f;
     padding-top: 10vh;
+    height: auto;
   }
+  
   .prof-container{
       
     user-select: none;
@@ -16,6 +18,7 @@
     height: auto;
     text-align: center;
     box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);
+    
   }
   .cover-photo{
     background: url(https://images.unsplash.com/photo-1540228232483-1b64a7024923?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80);

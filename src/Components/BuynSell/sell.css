@@ -16,6 +16,11 @@
 	min-height: 100vh;
 	margin: 0;
 }
+.sellsuccess
+{
+	background-color: rgba(18, 219, 18, 0.3);
+	color: white;
+}
 /*
 .card-container h3 {
 	margin: 10px 0;
@@ -150,8 +155,12 @@
  .modal-trigger
  {
 	 display: inline-block;
+
  }
  .sell-loader
  {
 	 margin: auto;
+ }
+ .modal-box{
+	 overflow: auto;
  }
