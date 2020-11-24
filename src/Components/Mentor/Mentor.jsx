@@ -24,10 +24,12 @@ const Mentor = () => {
 				});
 				//Setmentors(res.data.result);
 				SetOriginalmentors(res.data.result);
-				const mentors = res.data.result.map(result => {
-					result.skills = result.skills.split(":")
+				const mentors = res.data.result.filter(result => {
+					if(result.branch!="")
+					{result.skills = result.skills.split(":")
 					result.areaofinterest = result.areaofinterest.split(":")
 					return result;
+				}
 				})
 				console.log(mentors)
 				SetOriginalmentors(mentors)
@@ -58,6 +60,16 @@ const Mentor = () => {
 						return mentor
 
 				}
+			})
+			Setmentors(res)
+
+		}
+		else{
+			const res = originalmentors.filter(mentor => {
+					if (mentor['name'].toLowerCase().includes(e.target.value.toLowerCase()) && mentor['name'] != "")
+						return mentor
+				
+				
 			})
 			Setmentors(res)
 

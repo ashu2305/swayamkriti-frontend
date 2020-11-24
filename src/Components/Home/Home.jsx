@@ -46,35 +46,29 @@ const Home = () => {
                 <div class="wrap">
 
                     <div class="box one">
-                        <div class="know_more">
-                            <Link to="/mentor"><h4>Know more</h4></Link>
-                        </div>
+                        
                         <h1>MENTOR</h1>
-                        <div class="poster p1">
+                        <Link to="/mentor"><div class="poster p1">
                             <h4>
   <i class="material-icons">school</i></h4>
-                        </div>
+                        </div></Link>
                     </div>
 
                     <div class="box two">
-                        <div class="know_more">
-                           <Link to="/sell"><h4>Know more</h4></Link>
-                        </div>
+                        
                         <h1>BUY-SELL</h1>
-                        <div class="poster p2">
+                        <Link to="/sell" style={{textDecoration:"none"}}><div class="poster p2">
                             <h4>&#x20B9;</h4>
-                        </div>
+                        </div></Link>
                     </div>
 
                     <div class="box three">
-                        <div class="know_more">
-                           <Link to=""><h4>Know more</h4></Link>
-                        </div>
+                        
                         <h1>NOTIFICATION</h1>
-                        <div class="poster p3">
+                        <Link to="/notification"><div class="poster p3">
                             <h4>
   <i class="material-icons">message</i></h4>
-                        </div>
+                        </div></Link>
                     </div>
 
 

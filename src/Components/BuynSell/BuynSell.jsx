@@ -1,20 +1,25 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./sell.css"
 import Header from "../util/Header"
 import "./Header.css"
-import { Autocomplete, Icon, Modal, Button,TextInput } from "react-materialize"
+import { Autocomplete, Icon, Modal, Button, TextInput } from "react-materialize"
 import axios from 'axios'
 import { BASE, IMAGE_URL } from "../../config.json"
+import M from "materialize-css"
+import { Redirect, useHistory } from 'react-router-dom'
 const BuynSell = () => {
 	const [products, SetProducts] = useState([]);
 	const [allProducts, SetAllProducts] = useState([]);
 	const [originalproducts, SetOriginalProducts] = useState([]);
-	const [search , setSearch]  = useState("");
-	const [data,setData] = useState({
-		pname:"",
-		desc:"",
-		price:"",
-		pimage:'kcn2vbzm3c6lrqxliaw3'
+	const [search, setSearch] = useState("");
+	const [err, setError] = useState(false)
+	const [loader,setLoader] = useState(false)
+	const history = useHistory()
+	const [data, setData] = useState({
+		pname: "",
+		desc: "",
+		price: "",
+		pimage: 'kcn2vbzm3c6lrqxliaw3'
 	})
 	useEffect(() => {
 		const getProducts = async () => {
@@ -30,7 +35,7 @@ const BuynSell = () => {
 				//SetProducts(res.data.result);
 				SetAllProducts(res.data.result);
 				SetOriginalProducts(res.data.result);
-				console.log(res )
+				console.log(res)
 			}
 			catch (err) {
 				console.log(err)
@@ -40,63 +45,101 @@ const BuynSell = () => {
 	}, [])
 
 	const handleChange = e => {
-        setData({
-            ...data,
-            [e.target.name]: e.target.value
+		setData({
+			...data,
+			[e.target.name]: e.target.value
 		});
 		console.log(data)
+		if (data.pname == '' || data.price == '' || data.desc == '')
+		setError(true)
+		else
+		setError(false)
 	};
 	const fileChange = e => {
 		let filex = e.target.files[0]
 		console.log(filex)
-        setData({
-            ...data,
-            pimage : filex
+		setData({
+			...data,
+			pimage: filex
 		});
-    };
+		if (data.pname == '' || data.price == '' || data.desc == '')
+		setError(true)
+		else
+		setError(false)
+	};
 	const submit = async () => {
-        try {
-			const formData = new FormData();
-			formData.append('name',data.pname);
-			formData.append('desc',data.desc);
-			formData.append('isshow','T');
-			formData.append('image',data.pimage);
-			formData.append('price',data.price);
-			const result = await axios({
-                url: `${BASE}/user/buysell/`,
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${localStorage.FBIdToken}`
-                },
-                data: formData
-			});
-			console.log(result);
-		}catch(err){
-			console.log(err)
+		if (data.pname == '' || data.price == '' || data.desc == '')
+			setError(true)
+		else {
+			setError(false);
+			setLoader(true);
+			try {
+				const formData = new FormData();
+				formData.append('name', data.pname);
+				formData.append('desc', data.desc);
+				formData.append('isshow', 'T');
+				formData.append('image', data.pimage);
+				formData.append('price', data.price);
+				const result = await axios({
+					url: `${BASE}/user/buysell/`,
+					method: "POST",
+					headers: {
+						Authorization: `Bearer ${localStorage.FBIdToken}`
+					},
+					data: formData
+				});
+				console.log(result);
+				if (result.data.otp == "otp") {
+					M.toast({ html: "Submitted", classes: "sellsuccess" })
+					document.getElementById("closeModal").click();
+					await SetAllProducts([]);
+					try {
+						const res = await axios({
+							url: BASE + `/user/buysell/`,
+							method: "GET",
+							headers: {
+								Authorization: `Bearer ${localStorage.FBIdToken}`
+							}
+						});
+						//SetProducts(res.data.result);
+						SetAllProducts(res.data.result);
+						SetOriginalProducts(res.data.result);
+						console.log(res)
+					}
+					catch (err) {
+						console.log(err)
+					}
+				}
+				else {
+					M.toast({ html: "Error Occured" })
+				}
+			} catch (err) {
+				console.log(err)
+				M.toast({ html: "Error Occured" })
+			}
 		}
 	}
-	const changeProductlist= async(e) =>
-	{
+	const changeProductlist = async (e) => {
 		const value = e.target.value;
 		setSearch(value);
-		if(value==""){
+		if (value == "") {
 			SetAllProducts(originalproducts);
 			SetProducts([]);
-		}else{
-			const res = await originalproducts.filter(item=>{
-				if(item.pname.toLowerCase().includes(value.toLowerCase()))
-				return item;
+		} else {
+			const res = await originalproducts.filter(item => {
+				if (item.pname.toLowerCase().includes(value.toLowerCase()))
+					return item;
 			})
-			const res2 = await originalproducts.filter(item=>{
-				if(!item.pname.toLowerCase().includes(value.toLowerCase()))
-				return item;
+			const res2 = await originalproducts.filter(item => {
+				if (!item.pname.toLowerCase().includes(value.toLowerCase()))
+					return item;
 			})
 			SetAllProducts(res2);
 			SetProducts(res);
 		}
-		
+
 	}
-	
+
 	return (
 		<>
 			<Header />
@@ -105,16 +148,26 @@ const BuynSell = () => {
 				<div className="container ">
 					<div className="row">
 						<div className="col s12 m12 center-align">
-						<div class="input-field search-area">
-						<i class="material-icons prefix">search</i>
-          <input id="search-product" type="text" class="validate white-text" onChange={(e)=>{changeProductlist(e)}}/>
-          <label for="search-product">Search</label>
-        </div>
+							<div class="input-field search-area">
+								<i class="material-icons prefix">search</i>
+								<input id="search-product" type="text" class="validate white-text" onChange={(e) => { changeProductlist(e) }} />
+								<label for="search-product">Search</label>
+							</div>
 
 							<Modal
-								actions={[
-									<Button node="button" waves="green" onClick={submit}>Submit</Button>,
-									<Button flat modal="close" node="button" waves="red">Close</Button>
+								actions={[<>{loader&&<div style={{marginTop:"10px"}} class="preloader-wrapper active sell-loader">
+                                <div class="spinner-layer spinner-white-only">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div><div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div><div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+	</div>	}</>,
+									<Button node="button" disabled={err} waves="green" onClick={submit}>Submit</Button>,
+									<Button flat modal="close" id="closeModal" node="button" waves="red">Close</Button>
 								]}
 								bottomSheet={false}
 								fixedFooter={false}
@@ -135,10 +188,10 @@ const BuynSell = () => {
 									startingTop: '4%'
 								}}
 								className="modal-box"
-								trigger={<Button className="white-text waves-effect waves-light header-btn btn modal-trigger" node="button">Sell</Button>}
+								trigger={<Button className="white-text waves-effect waves-light red darken-2 btn modal-trigger" node="button">Sell</Button>}
 							>
 								<div class="input-field">
-									<input id="name" type="text" class="validate" name="pname"  onChange={handleChange} />
+									<input id="name" type="text" class="validate" name="pname" onChange={handleChange} />
 									<label for="name">Name</label>
 								</div>
 								<div class="input-field">
@@ -147,90 +200,92 @@ const BuynSell = () => {
 								</div>
 
 								<div class="input-field">
-									<input id="price" type="text" class="validate" name="price"  onChange={handleChange}/>
+									<input id="price" type="text" class="validate" name="price" onChange={handleChange} />
 									<label for="price">Price</label>
 								</div>
 								<div class="file-field input-field">
 									<div class="btn">
 										<span>Image</span>
-										<input type="file"  name="pimage" onChange ={fileChange}/>
+										<input type="file" name="pimage" onChange={fileChange} />
 									</div>
 									<div class="file-path-wrapper">
 										<input class="file-path validate" type="text" />
 									</div>
 								</div>
+								{err ? <h4 style={{ color: "red", margin: "auto" }}>Fill all fields</h4> : ""}
+								
 							</Modal>
 						</div>
 
 					</div>
-					{products.length === 0 && search !== '' && 
+					{products.length === 0 && search !== '' &&
 						<>
 							<div className="row">
-							<div style={{margin: "auto"}}>
-								<h2 style={{color: "white"}}>Searched Product</h2></div>
+								<div style={{ margin: "auto" }}>
+									<h2 style={{ color: "white" }}>Searched Product</h2></div>
 							</div>
 							<div className="row">
-							<div style={{margin: "auto"}}>
-								<h1 style={{color: "white"}}>No Search Found</h1></div>
+								<div style={{ margin: "auto" }}>
+									<h1 style={{ color: "white" }}>No Search Found</h1></div>
 							</div>
 						</>
 					}
-					{products.length >0 && 
+					{products.length > 0 &&
 						<>
-						<div className="row">
-						<div style={{margin: "auto"}}>
-							<h2 style={{color: "white"}}>Searched Product</h2></div>
-						</div>
-						<div className="row">
-							
-							{
-								products.map(item => {
-									if (item.isshow == "T") {
-										return (
-											<div class="card cardSell">
-												<div class="card-image sellImage">
-													<img src={`${IMAGE_URL}${item.pimage}`} />
+							<div className="row">
+								<div style={{ margin: "auto" }}>
+									<h2 style={{ color: "white" }}>Searched Product</h2></div>
+							</div>
+							<div className="row">
 
-												</div>
-												<div class="card-content white-text">
-													<span class="card-title">{item.pname}</span>
-													<p>{item.desc}</p>
-													<h6>₹{item.price}</h6>
-												</div>
-												<div class="card-action">
-													<a href={`mailto:${item.email}?subject=Buy item (${item.pname}) from Swyamkriti`} className="waves-effect waves-light btn">BUY</a>
-												</div>
-											</div>
+								{
+									products.map(item => {
+										if (item.isshow == "T") {
+											return (
+												<div class="card cardSell">
+													<div class="card-image sellImage">
+														<img src={`${IMAGE_URL}${item.pimage}`} />
 
-										)
-									}
-								})
-							}
+													</div>
+													<div class="card-content white-text">
+														<span class="card-title">{item.pname}</span>
+														<p>{item.desc}</p>
+														<h6>₹{item.price}</h6>
+													</div>
+													<div class="card-action">
+														<a href={`mailto:${item.email}?subject=Buy item (${item.pname}) from Swyamkriti`} className="waves-effect waves-light btn">BUY</a>
+													</div>
+												</div>
 
-						</div>
+											)
+										}
+									})
+								}
+
+							</div>
 						</>
 					}
 					<div className="row">
-					<div style={{margin: "auto"}}>
-							<h2 style={{color: "white"}}>All Products</h2></div>
+						<div style={{ margin: "auto" }}>
+							<h2 style={{ color: "white" }}>All Products</h2></div>
 					</div>
 					<div className="row">
-					{
-								allProducts.length==0&&<>
+						{
+							allProducts.length == 0 && <>
 								<div class="preloader-wrapper small active sell-loader">
-    <div class="spinner-layer spinner-green-only">
-      <div class="circle-clipper left">
-        <div class="circle"></div>
-      </div><div class="gap-patch">
-        <div class="circle"></div>
-      </div><div class="circle-clipper right">
-        <div class="circle"></div>
-      </div>
-    </div>
-  </div>
-        
-								</>
-							}
+									<div class="spinner-layer spinner-green-only">
+										<div class="circle-clipper left">
+											<div class="circle"></div>
+										</div><div class="gap-patch">
+											<div class="circle"></div>
+										</div><div class="circle-clipper right">
+											<div class="circle"></div>
+										</div>
+									</div>
+								</div>
+
+							</>
+						}
 						{
 							allProducts.map(item => {
 								if (item.isshow == "T") {
@@ -247,6 +302,7 @@ const BuynSell = () => {
 											</div>
 											<div class="card-action">
 												<a href={`mailto:${item.email}?subject=Buy item (${item.pname}) from Swyamkriti`} className="waves-effect waves-light btn">BUY</a>
+												<div className="white-text right">Owner: {item.name}</div>
 											</div>
 										</div>
 

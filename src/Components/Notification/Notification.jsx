@@ -1,29 +1,48 @@
 import React,{useEffect, useState} from "react"
 import "./notification.css"
+
+import Header from "../util/Header"
 const Notification = () => {
 
-    return(
+    return(<>
+    <Header/>
         <div className="container-fluid notification-background">
-        <div className="container notification-box white">
+        <div className="container notification-box">
             <div className="row">
                 <div className="col s12 m12">
-                    <h1>Notification</h1>
-                    <div className="notification-block">
-                        <p className="description-box">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores 
-                            hic sunt nemo reprehenderit dolor et nulla doloremque magnam vel, maiores 
-                            laboriosam alias possimus maxime quisquam rerum beatae! Iure, eligendi. Dolore?</p>
-                            <span className="preview-box"><img src="https://www.gsb.stanford.edu/sites/default/files/styles/1630x_variable/public/resources/chiukey.jpg?itok=Z_-XVRps"/></span>
-                    </div>
-                    <div className="notification-block">
-                        <p className="description-box">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores 
-                            hic sunt nemo reprehenderit dolor et nulla doloremque magnam vel, maiores 
-                            laboriosam alias possimus maxime quisquam rerum beatae! Iure, eligendi. Dolore?</p>
-                            <span className="preview-box"> </span>
+                    <h1 style={{color:"#26a69a"}}>Notification</h1>
+                    <ul class="collection notifications">
+      <li class="collection-item"><p className="description-box">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate obcaecati
+           ipsum tempore vitae numquam atque illum optio sequi, rem illo expedita nemo. 
+           Error assumenda hic reiciendis nihil sint ipsa pariatur.
+          </p><span className="preview-box"><img src='https://upload.wikimedia.org/wikipedia/en/thumb/7/7e/Kimetsu_no_Yaiba_Blu-ray_Disc_Box_1_art.jpg/220px-Kimetsu_no_Yaiba_Blu-ray_Disc_Box_1_art.jpg'/></span>
+          </li>
+          <li class="collection-item"><p className="description-box">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate obcaecati
+           ipsum tempore vitae numquam atque illum optio sequi, rem illo expedita nemo. 
+           Error assumenda hic reiciendis nihil sint ipsa pariatur.
+          </p><span className="preview-box"><img src='https://upload.wikimedia.org/wikipedia/en/thumb/7/7e/Kimetsu_no_Yaiba_Blu-ray_Disc_Box_1_art.jpg/220px-Kimetsu_no_Yaiba_Blu-ray_Disc_Box_1_art.jpg'/></span>
+          </li>
+          <li class="collection-item"><p className="description-box">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate obcaecati
+           ipsum tempore vitae numquam atque illum optio sequi, rem illo expedita nemo. 
+           Error assumenda hic reiciendis nihil sint ipsa pariatur.
+          </p><span className="preview-box"><img src='https://upload.wikimedia.org/wikipedia/en/thumb/7/7e/Kimetsu_no_Yaiba_Blu-ray_Disc_Box_1_art.jpg/220px-Kimetsu_no_Yaiba_Blu-ray_Disc_Box_1_art.jpg'/></span>
+          </li>
+          <li class="collection-item"><p className="description-box">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate obcaecati
+           ipsum tempore vitae numquam atque illum optio sequi, rem illo expedita nemo. 
+           Error assumenda hic reiciendis nihil sint ipsa pariatur.
+          </p><span className="preview-box"><img src='https://upload.wikimedia.org/wikipedia/en/thumb/7/7e/Kimetsu_no_Yaiba_Blu-ray_Disc_Box_1_art.jpg/220px-Kimetsu_no_Yaiba_Blu-ray_Disc_Box_1_art.jpg'/></span>
+          </li>
+      
+    </ul>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
+        </>
     )
 }
 
