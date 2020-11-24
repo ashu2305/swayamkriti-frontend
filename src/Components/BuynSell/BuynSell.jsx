@@ -15,6 +15,7 @@ const BuynSell = () => {
 	const [err, setError] = useState(false)
 	const [loader,setLoader] = useState(false)
 	const history = useHistory()
+	const [error, seterror] = useState(0);
 	const [data, setData] = useState({
 		pname: "",
 		desc: "",
@@ -38,19 +39,32 @@ const BuynSell = () => {
 				console.log(res)
 			}
 			catch (err) {
-				console.log(err)
+				console.log(err.response)
+				if(err.response === undefined )
+				{
+					console.log("Please try Again");
+					setError(1);
+				}
+				else if (err && err.response.status === 401) {
+                    seterror(1);
+                } else {
+                    seterror(0);
+                }
+				
 			}
 		}
 		getProducts();
 	}, [])
-
+	if (error === 1) {
+        return (<Redirect to='/logout' />);
+    }
 	const handleChange = e => {
 		setData({
 			...data,
 			[e.target.name]: e.target.value
 		});
 		console.log(data)
-		if (data.pname == '' || data.price == '' || data.desc == '')
+		if (data.pname === '' || data.price === '' || data.desc === '')
 		setError(true)
 		else
 		setError(false)
@@ -62,13 +76,13 @@ const BuynSell = () => {
 			...data,
 			pimage: filex
 		});
-		if (data.pname == '' || data.price == '' || data.desc == '')
+		if (data.pname === '' || data.price === '' || data.desc === '')
 		setError(true)
 		else
 		setError(false)
 	};
 	const submit = async () => {
-		if (data.pname == '' || data.price == '' || data.desc == '')
+		if (data.pname === '' || data.price === '' || data.desc === '')
 			setError(true)
 		else {
 			setError(false);
@@ -89,7 +103,7 @@ const BuynSell = () => {
 					data: formData
 				});
 				console.log(result);
-				if (result.data.otp == "otp") {
+				if (result.data.otp === "otp") {
 					M.toast({ html: "Submitted", classes: "sellsuccess" })
 					document.getElementById("closeModal").click();
 					await SetAllProducts([]);
@@ -122,7 +136,7 @@ const BuynSell = () => {
 	const changeProductlist = async (e) => {
 		const value = e.target.value;
 		setSearch(value);
-		if (value == "") {
+		if (value === "") {
 			SetAllProducts(originalproducts);
 			SetProducts([]);
 		} else {
@@ -240,7 +254,7 @@ const BuynSell = () => {
 
 								{
 									products.map(item => {
-										if (item.isshow == "T") {
+										if (item.isshow === "T") {
 											return (
 												<div class="card cardSell">
 													<div class="card-image sellImage">
@@ -271,7 +285,7 @@ const BuynSell = () => {
 					</div>
 					<div className="row">
 						{
-							allProducts.length == 0 && <>
+							allProducts.length === 0 && <>
 								<div class="preloader-wrapper small active sell-loader">
 									<div class="spinner-layer spinner-green-only">
 										<div class="circle-clipper left">
@@ -288,7 +302,7 @@ const BuynSell = () => {
 						}
 						{
 							allProducts.map(item => {
-								if (item.isshow == "T") {
+								if (item.isshow === "T") {
 									return (
 										<div class="card cardSell">
 											<div class="card-image sellImage">

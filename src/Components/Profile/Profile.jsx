@@ -54,11 +54,13 @@ const Profile = () => {
                     let input = res.data.result;
 
                     let y = [];
-                    if (input.skills !== "undefined") {
+                    if (input.skills === undefined){
+                        y=[];
+                    }
+                    else {
                         let x = input.skills.split(' : ');
                         x.map((item) => (y.push({ value: item, label: item })));
                     }
-
                     setData({
                         rollno: input.rollno ? input.rollno : "",
                         branch: input.branch ? input.branch : "",
@@ -98,7 +100,7 @@ const Profile = () => {
     };
 
     const submit = async () => {
-        if (data.skills == [] || data.areaofinterest == '' || data.branch == '' || data.year == "" || data.rollno == "")
+        if (data.skills === [] || data.areaofinterest === '' || data.branch === '' || data.year === "" || data.rollno === "")
             setInputError(true)
         else {
             await setInputError(false)
@@ -147,7 +149,7 @@ const Profile = () => {
             ...data,
             [e.target.name]: e.target.value
         });
-        if (data.skills == [] || data.areaofinterest == '' || data.branch == '' || data.year == "" || data.rollno == "")
+        if (data.skills === [] || data.areaofinterest === '' || data.branch === '' || data.year === "" || data.rollno === "")
             await setInputError(true)
         else
             await setInputError(false)
@@ -165,17 +167,17 @@ const Profile = () => {
             ...data,
             skills: options
         })
-        if (data.skills == [] || data.areaofinterest == '' || data.branch == '' || data.year == "" || data.rollno == "")
+        if (data.skills === [] || data.areaofinterest === '' || data.branch === '' || data.year === "" || data.rollno === "")
             setInputError(true)
         else
             setInputError(false)
     }
     return (<><Header />
-        <div className="prof-back" style={data.name == "" ? { height: "100vh" } : { height: "auto" }}>
+        <div className="prof-back" style={data.name === "" ? { height: "100vh" } : { height: "auto" }}>
 
             <div class="prof-container">
                 <div class="cover-photo">
-                    <img src={`${config.IMAGE_URL}${data.image}`} class="profile" />
+                    <img src={`${config.IMAGE_URL}${data.image}`} alt="user_image" class="profile" />
                 </div>
 
 
@@ -196,7 +198,7 @@ const Profile = () => {
                 <div>
                     <button className="msg-btn"onClick={handleShow}>Add More Detais</button>
                     <div>
-                        {data.name == "" &&
+                        {data.name === "" &&
                             <div style={{marginTop:"10px"}} class="preloader-wrapper active sell-loader">
                                 <div class="spinner-layer spinner-white-only">
                                     <div class="circle-clipper left">
@@ -333,6 +335,8 @@ const Profile = () => {
                 </div>
                 <br />
                 <h3>Selling Products</h3><br />
+                {products.length === 0 &&  <><h4>No Product in Selling list</h4><br /></> }
+               
                 {
                     products.map(product => {
                         return (

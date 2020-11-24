@@ -12,6 +12,7 @@ const Login = () => {
     const[data, setData] = useState({
         email:'',
         password:'',
+        role: 'student'
     });
 
     const[error, setError]  = useState(0);
@@ -21,7 +22,14 @@ const Login = () => {
     //4 wrong password
     const [load, setLoad] = useState(false)
 
+    const handleRadioChange = e => {
+        setData({
+            ...data,
+            role: e.target.value
+        })
+    }
     const handleChange = e =>{
+        console.log( e.target.value);
         setData({
             ...data,
             [e.target.name]: e.target.value
@@ -130,6 +138,19 @@ const Login = () => {
                                         onKeyDown={handleKeyDown}    
                                     />
                                     <label for="password">Password</label>
+                                </div>
+                                <div class="input-field">
+                                   
+                                    <p>
+                                        <label>
+                                            <input class="with-gap" onChange={handleRadioChange} value="student" type="radio" checked={data.role === "student"} />
+                                            <span>Student</span>
+                                        </label>
+                                        <label>
+                                            <input class="with-gap" onChange={handleRadioChange} value="admin" type="radio" checked={data.role === "admin"} />
+                                            <span>Admin</span>
+                                        </label>
+                                    </p>
                                 </div>
                                 {load===false ?
                                     <button class="btn waves-effect waves-light" type="submit" onClick={onSubmit} name="action">Login
