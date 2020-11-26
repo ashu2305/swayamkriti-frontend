@@ -124,11 +124,13 @@ const BuynSell = () => {
 							price: "",
 							pimage: ''
 						})
+						setLoader(false);
 						console.log(data);
 						console.log(res)
 					}
 					catch (err) {
 						console.log(err)
+						setLoader(false);
 					}
 				}
 				else {

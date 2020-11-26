@@ -362,10 +362,10 @@ const Profile = () => {
                 {products.length === 0 &&  <><h4>No Product in Selling list</h4><br /></> }
                
                 {
-                    products.map(product => {
+                    products.map((product, i) => {
                         if(product.isshow === "T")
                         return (
-                            <button disabled class="follow-btn">
+                            <button disabled key={i} class="follow-btn">
                                 <div>
                                     <h5>{product.pname}</h5>
                                     <h6>{product.desc}</h6>

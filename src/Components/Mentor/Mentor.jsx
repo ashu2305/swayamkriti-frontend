@@ -25,7 +25,7 @@ const Mentor = () => {
 				//Setmentors(res.data.result);
 				SetOriginalmentors(res.data.result);
 				const mentors = res.data.result.filter(result => {
-					if(result.branch!="")
+					if(result.branch!=="")
 					{result.skills = result.skills.split(":")
 					result.areaofinterest = result.areaofinterest.split(":")
 					return result;
@@ -43,10 +43,10 @@ const Mentor = () => {
 	}, [])
 	const changeMentorlist = async (e) => {
 		await setSearch(e.target.value)
-		if (filter != "") {
+		if (filter !== "") {
 			const res = originalmentors.filter(mentor => {
-				if (filter == "year" || filter == "branch" ||filter == "name") {
-					if (mentor[filter].toLowerCase().includes(e.target.value.toLowerCase()) && mentor[filter] != "")
+				if (filter === "year" || filter === "branch" ||filter === "name") {
+					if (mentor[filter].toLowerCase().includes(e.target.value.toLowerCase()) && mentor[filter] !== "")
 						return mentor
 				}
 				else {
@@ -58,7 +58,6 @@ const Mentor = () => {
 						}
 					if (val)
 						return mentor
-
 				}
 			})
 			Setmentors(res)
@@ -66,10 +65,8 @@ const Mentor = () => {
 		}
 		else{
 			const res = originalmentors.filter(mentor => {
-					if (mentor['name'].toLowerCase().includes(e.target.value.toLowerCase()) && mentor['name'] != "")
+					if (mentor['name'].toLowerCase().includes(e.target.value.toLowerCase()) && mentor['name'] !== "")
 						return mentor
-				
-				
 			})
 			Setmentors(res)
 
@@ -102,15 +99,15 @@ const Mentor = () => {
 
 					<div className="row">
 						{
-							mentors.length > 0 && search != "" && <h2 style={{ margin: "auto", color: "white" }}>Searched Mentors</h2>
+							mentors.length > 0 && search !== "" && <h2 style={{ margin: "auto", color: "white" }}>Searched Mentors</h2>
 						}
 						{
-							mentors.length == 0 && search != "" &&<> 
+							mentors.length === 0 && search !== "" &&<> 
 							<h3 style={{ margin: "auto", color: "white" }}>No search found</h3></>
 						}
 					</div>
 					<div className="row">
-						{search != "" &&
+						{search !== "" &&
 							mentors.map(mentor => {
 								return (
 
@@ -161,7 +158,7 @@ const Mentor = () => {
 					<div className="row">
 
 						{
-							allmentors.length == 0 && <>
+							allmentors.length === 0 && <>
 								<div class="preloader-wrapper small active sell-loader">
 									<div class="spinner-layer spinner-green-only">
 										<div class="circle-clipper left">
