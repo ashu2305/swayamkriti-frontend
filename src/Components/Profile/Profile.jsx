@@ -150,6 +150,7 @@ const Profile = () => {
             ...data,
             [e.target.name]: e.target.value
         });
+
         if (data.skills === [] || data.areaofinterest === '' ||  data.rollno === "")
             await setInputError(true)
         else
