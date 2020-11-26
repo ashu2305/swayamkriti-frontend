@@ -27,11 +27,7 @@
     width: 200px;
     height: 200px;
 }
-.notification-block:nth-child(odd)
-{
-    background-color: rgb(240, 240, 240);
-    
-}
+
 .notifications
 {
     background-color: #242629!important;
