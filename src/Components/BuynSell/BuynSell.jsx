@@ -22,6 +22,12 @@ const BuynSell = () => {
 		price: "",
 		pimage: 'kcn2vbzm3c6lrqxliaw3'
 	})
+	useEffect(()=>{
+		if (data.pname === '' || data.price === '' || data.desc === '')
+			setError(true)
+			else
+			setError(false)
+	})
 	useEffect(() => {
 		const getProducts = async () => {
 
@@ -57,17 +63,16 @@ const BuynSell = () => {
 	}, [])
 	if (error === 1) {
         return (<Redirect to='/logout' />);
-    }
+	}
+	
+	
+
 	const handleChange = e => {
 		setData({
 			...data,
 			[e.target.name]: e.target.value
 		});
-		console.log(data)
-		if (data.pname === '' || data.price === '' || data.desc === '')
-		setError(true)
-		else
-		setError(false)
+		
 	};
 	const fileChange = e => {
 		let filex = e.target.files[0]
@@ -76,16 +81,10 @@ const BuynSell = () => {
 			...data,
 			pimage: filex
 		});
-		if (data.pname === '' || data.price === '' || data.desc === '')
-		setError(true)
-		else
-		setError(false)
+		
 	};
 	const submit = async () => {
-		if (data.pname === '' || data.price === '' || data.desc === '')
-			setError(true)
-		else {
-			setError(false);
+		{
 			setLoader(true);
 			try {
 				const formData = new FormData();
@@ -153,6 +152,7 @@ const BuynSell = () => {
 		}
 
 	}
+	
 
 	return (
 		<>

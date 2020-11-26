@@ -85,8 +85,15 @@ const Profile = () => {
             }
         };
         getUser();
-
+        
     }, []);
+    useEffect(()=>{
+        
+        if (data.skills===null||data.skills===[]|| data.areaofinterest === '' || data.branch === '' || data.year === "" || data.rollno === "")
+            setInputError(true)
+        else
+            setInputError(false)
+    })
     if (error === 1) {
         return (<Redirect to='/logout' />);
     }
@@ -100,9 +107,8 @@ const Profile = () => {
     };
 
     const submit = async () => {
-        if ( data.areaofinterest === '' || data.branch === '' || data.year === "" || data.rollno === "")
-            setInputError(true)
-        else {
+        console.log(data);
+        {
             await setInputError(false)
             try {
                 setLoader(true)
@@ -149,10 +155,7 @@ const Profile = () => {
             ...data,
             [e.target.name]: e.target.value
         });
-        if ( data.areaofinterest === '' || data.branch === '' || data.year === "" || data.rollno === "")
-            await setInputError(true)
-        else
-            await setInputError(false)
+        
     };
 
     const handleClose = () => {
@@ -167,13 +170,10 @@ const Profile = () => {
             ...data,
             skills: options
         })
-        if ( data.areaofinterest === '' || data.branch === '' || data.year === "" || data.rollno === "")
-            setInputError(true)
-        else
-            setInputError(false)
+
     }
     return (<><Header />
-        <div className="prof-back" style={data.name === "" ? { height: "100vh" } : { height: "auto" }}>
+        <div className="prof-back" style={data.name === ""||(products.length==0&&!data.areaofinterest) ? { height: "100vh" } : { height: "auto" }}>
 
             <div class="prof-container">
                 <div class="cover-photo">
@@ -228,7 +228,7 @@ const Profile = () => {
                                     <Form.Group controlId="exampleForm.SelectCustom">
                                         <Form.Label>Starting Year</Form.Label>
                                         <Form.Control as="select" value={data.year} custom name="year" onChange={handleChange}>
-
+                                            <option value="" disabled selected>Choose year</option>
                                             <option>2020</option>
                                             <option>2019</option>
                                             <option>2018</option>
@@ -276,6 +276,7 @@ const Profile = () => {
                                     <Form.Group controlId="exampleForm.SelectCustom">
                                         <Form.Label>Program</Form.Label>
                                         <Form.Control as="select" value={data.program} custom name="program" onChange={handleChange}>
+                                            <option value="" disabled selected>Choose Program</option>
                                             <option>B. Tech </option>
                                             <option>M.Tech</option>
                                             <option>MCA</option>
@@ -285,6 +286,7 @@ const Profile = () => {
                                     <Form.Group controlId="exampleForm.SelectCustom">
                                         <Form.Label>Branch</Form.Label>
                                         <Form.Control as="select" custom name="branch" value={data.branch} onChange={handleChange}>
+                                            <option value="" disabled selected>Choose Branch</option>
                                             <option>Civil Engineering</option>
                                             <option>Computer Engineering</option>
                                             <option>Electrical Enginnering</option>
