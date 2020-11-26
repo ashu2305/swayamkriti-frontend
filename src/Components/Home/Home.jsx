@@ -50,7 +50,7 @@ const Home = () => {
                         <h1>MENTOR</h1>
                         <Link to="/mentor"><div class="poster p1">
                             <h4>
-  <i class="material-icons">school</i></h4>
+  <i class="material-icons schl">school</i></h4>
                         </div></Link>
                     </div>
 
@@ -67,7 +67,7 @@ const Home = () => {
                         <h1>NOTIFICATION</h1>
                         <Link to="/notification"><div class="poster p3">
                             <h4>
-  <i class="material-icons">message</i></h4>
+  <i class="material-icons msg">message</i></h4>
                         </div></Link>
                     </div>
 

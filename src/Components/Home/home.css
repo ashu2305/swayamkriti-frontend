@@ -164,3 +164,11 @@
 				-webkit-transform: rotate(359deg);
 		}
 }
+
+.msg{
+	padding-top: 10px !important;
+}
+
+.schl{
+	padding-top: 8px !important;
+}

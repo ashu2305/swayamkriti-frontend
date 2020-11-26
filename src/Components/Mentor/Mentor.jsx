@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import "./mentor.css"
+import "./mentor.css";
+import {Redirect} from 'react-router-dom';
 import Header from "../util/Header"
 import { Autocomplete, Icon } from 'react-materialize'
 import axios from 'axios'
@@ -10,6 +11,7 @@ const Mentor = () => {
 	const [allmentors, SetAllmentors] = useState([]);
 	const [originalmentors, SetOriginalmentors] = useState([]);
 	const [search, setSearch] = useState("");
+	const [error, setError] = useState(0);
 
 	useEffect(() => {
 		const getmentors = async () => {
@@ -36,11 +38,19 @@ const Mentor = () => {
 				SetAllmentors(mentors)
 			}
 			catch (err) {
+				if (error.response.status === 401) {
+                    setError(1);
+                }else{
+					setError(0);
+				}
 				console.log(err)
 			}
 		}
 		getmentors();
-	}, [])
+	}, []);
+	if (error === 1) {
+        return (<Redirect to='/logout' />);
+    }
 	const changeMentorlist = async (e) => {
 		await setSearch(e.target.value)
 		if (filter !== "") {

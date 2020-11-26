@@ -139,6 +139,7 @@ const BuynSell = () => {
 				}
 			} catch (err) {
 				console.log(err)
+				
 				M.toast({ html: "Error Occured" })
 			}
 		}

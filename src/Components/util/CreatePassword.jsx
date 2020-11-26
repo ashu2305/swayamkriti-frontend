@@ -54,14 +54,19 @@ const CreatePassword=(props)=> {
     const onSubmit = (e) => {
         e.preventDefault();
         if(data.password === data.confirmPassword) {
-            if(data.password !== '' && data.confirmPassword !== '') {
-                setError(0);
-                setLoad(true);
-                passwordChange();
+            if(data.password.length <6){
+                if(data.password !== '' && data.confirmPassword !== '') {
+                    setError(0);
+                    setLoad(true);
+                    passwordChange();
+                }
+                else {
+                    setError(1);
+                }
+            }else{
+                setError(5);
             }
-            else {
-                setError(1);
-            }
+            
         }
         else {
             setError(2);
@@ -111,7 +116,9 @@ const CreatePassword=(props)=> {
                                 {error === 2 &&
                                     <p className="error center-align">Password does not match</p>
                                 }
-
+                                {error === 5 &&
+                                    <p className="error center-align">Password length must be 6</p>
+                                }   
                             </div>
                             <div class="card-action center-align">
                                 

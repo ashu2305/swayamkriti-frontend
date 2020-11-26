@@ -8,6 +8,7 @@ import rootReducer from './store/rootReducer';
 import ForgotPassword from './Components/ForgotPassword/ForgotPassword'
 import Home from './Components/Home/Home';
 import Profile from './Components/Profile/Profile';
+import Profile1 from './Components/Profile/Profile1';
 import Logout from './Components/util/Logout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Mentor from './Components/Mentor/Mentor'
@@ -24,6 +25,7 @@ function App() {
           <Route path="/login" component={Signin} />
           <Route path="/signup" component={Signup} />
           <Route path="/profile" component={Profile} />
+          <Route path="/profile1" component={Profile1} />
           <Route path="/forgotpassword" component={ForgotPassword} />
           <Route path="/logout" component={Logout} />
           <Route path ="/mentor" component = {Mentor} />

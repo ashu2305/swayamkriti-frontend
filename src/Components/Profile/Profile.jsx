@@ -19,7 +19,19 @@ const Profile = () => {
         program: "",
         skills: [],
         areaofinterest: '',
-        image: 'kcn2vbzm3c6lrqxliaw3',
+        image: '',
+        year: '',
+        email: '',
+        gender: '',
+        name: ''
+    });
+    const [pdata, setPData] = useState({
+        rollno: "",
+        branch: "",
+        program: "",
+        skills: [],
+        areaofinterest: '',
+        image: '',
         year: '',
         email: '',
         gender: '',
@@ -29,7 +41,9 @@ const Profile = () => {
     const [show, setShow] = useState(false);
     const [inputError, setInputError] = useState(false)
     const [error, setError] = useState(0);
-    const [loader,setLoader] = useState(false)
+    const [loader,setLoader] = useState(false);
+    const [verified, setVerified] = useState(false);
+    
     //0 no error
     //1 unauthorized
 
@@ -67,6 +81,19 @@ const Profile = () => {
                         program: input.program ? input.program : "",
                         skills: y,
                         areaofinterest: input.areaofinterest ? input.areaofinterest : '',
+                        image: (input.image !== undefined ) ? input.image : (input.gender === 'M') ? 'WhatsApp_Image_2020-11-26_at_10.44.30_PM_1_t5mowc.jpg' : 'WhatsApp_Image_2020-11-26_at_10.44.30_PM_fwbvr3.jpg' ,
+                        year: input.year ? input.year : '',
+                        email: input.email ? input.email : '',
+                        gender: input.gender ? input.gender : '',
+                        name: input.name ? input.name : ''
+                    })
+                    console.log(data.image);
+                    setPData({
+                        rollno: input.rollno ? input.rollno : "",
+                        branch: input.branch ? input.branch : "",
+                        program: input.program ? input.program : "",
+                        skills: y,
+                        areaofinterest: input.areaofinterest ? input.areaofinterest : '',
                         image: (input.image !== "None") ? input.image : 'kcn2vbzm3c6lrqxliaw3',
                         year: input.year ? input.year : '',
                         email: input.email ? input.email : '',
@@ -89,8 +116,11 @@ const Profile = () => {
     }, []);
     useEffect(()=>{
         
-        if (data.skills===null||data.skills===[]|| data.areaofinterest === '' || data.branch === '' || data.year === "" || data.rollno === "")
+        if (pdata.skills===null||pdata.skills===[]|| pdata.areaofinterest === ''  || pdata.year==='' || pdata.rollno === ""){
             setInputError(true)
+            console.log("hello");
+        }
+            
         else
             setInputError(false)
     })
@@ -100,8 +130,8 @@ const Profile = () => {
 
     const fileChange = e => {
         let filex = e.target.files[0]
-        setData({
-            ...data,
+        setPData({
+            ...pdata,
             image: filex
         });
         console.log(filex);
@@ -109,27 +139,27 @@ const Profile = () => {
 
     const submit = async () => {
 
-        console.log(data);
+        console.log(pdata);
         {
             await setInputError(false)
             try {
                 setLoader(true)
                 let y = [];
                 let x;
-                if (data.skills.length > 0) {
-                    data.skills.map((item) => (y.push(item.value)));
+                if (pdata.skills.length > 0) {
+                    pdata.skills.map((item) => (y.push(item.value)));
 
                     x = y.join(' : ');
                 }
 
                 const formData = new FormData();
-                formData.append('branch', data.branch);
-                formData.append('year', data.year);
-                formData.append('rollno', data.rollno);
-                formData.append('prog', data.program);
+                formData.append('branch', pdata.branch);
+                formData.append('year', pdata.year);
+                formData.append('rollno', pdata.rollno);
+                formData.append('prog', pdata.program);
                 formData.append('skills', x);
-                formData.append('areaofinterest', data.areaofinterest);
-                formData.append('image', data.image);
+                formData.append('areaofinterest', pdata.areaofinterest);
+                formData.append('image', pdata.image);
 
                 const result = await axios({
                     url: `${config.BASE}/user/addmentor/`,
@@ -142,6 +172,7 @@ const Profile = () => {
                 if (result.data) {
                     setLoader(false)
                     handleClose();
+                    setVerified(true);
                 }
             }
             catch (error) {
@@ -153,8 +184,8 @@ const Profile = () => {
 
     const handleChange = async e => {
         
-        await setData({
-            ...data,
+        await setPData({
+            ...pdata,
             [e.target.name]: e.target.value
         });
     };
@@ -167,14 +198,16 @@ const Profile = () => {
         submit();
     }
     const handleChangeSkills = async (options) => {
-        await setData({
-            ...data,
+        await setPData({
+            ...pdata,
             skills: options
         })
 
     }
 
+
     const delete_Product = async e => {
+        setLoader(true);
         const postData = {
             "p_id":e
         }
@@ -188,11 +221,18 @@ const Profile = () => {
                 data: postData
             });
             console.log(res);
+            setLoader(false);
+            setVerified(true);
         }
         catch(error){
             console.log(error);
+            setLoader(false);
         }
     }
+    if(verified === true){
+        return <Redirect to='/profile1' />;
+    }
+    console.log(pdata);
 
 
     return (<><Header />
@@ -242,7 +282,7 @@ const Profile = () => {
                                 <Form>
                                     <Form.Group >
                                         <Form.Label>Roll No</Form.Label>
-                                        <Form.Control type="number" value={data.rollno} placeholder="Enter Roll No" onChange={handleChange} name="rollno" />
+                                        <Form.Control type="number" value={pdata.rollno} placeholder="Enter Roll No" onChange={handleChange} name="rollno" />
                                     </Form.Group>
                                     <Form.Group >
                                         <Form.Label>Profile Photo</Form.Label>
@@ -250,7 +290,7 @@ const Profile = () => {
                                     </Form.Group>
                                     <Form.Group controlId="exampleForm.SelectCustom">
                                         <Form.Label>Starting Year</Form.Label>
-                                        <Form.Control as="select" value={data.year} custom name="year" onChange={handleChange}>
+                                        <Form.Control as="select" value={pdata.year} custom name="year" onChange={handleChange}>
 
                                             <option value="" disabled selected>Choose year</option>
 
@@ -302,7 +342,7 @@ const Profile = () => {
                                     </Form.Group>
                                     <Form.Group controlId="exampleForm.SelectCustom">
                                         <Form.Label>Program</Form.Label>
-                                        <Form.Control as="select" value={data.program} custom name="program" onChange={handleChange}>
+                                        <Form.Control as="select" value={pdata.program} custom name="program" onChange={handleChange}>
                                             <option value="" disabled selected>Choose Program</option>
                                             <option>B. Tech </option>
                                             <option>M.Tech</option>
@@ -312,7 +352,7 @@ const Profile = () => {
                                     </Form.Group>
                                     <Form.Group controlId="exampleForm.SelectCustom">
                                         <Form.Label>Branch</Form.Label>
-                                        <Form.Control as="select" custom name="branch" value={data.branch} onChange={handleChange}>
+                                        <Form.Control as="select" custom name="branch" value={pdata.branch} onChange={handleChange}>
                                             <option value="" disabled selected>Choose Branch</option>
                                             <option>Civil Engineering</option>
                                             <option>Computer Engineering</option>
@@ -325,11 +365,11 @@ const Profile = () => {
                                     </Form.Group>
                                     <Form.Group>
                                         <Form.Label>Skills</Form.Label>
-                                        <Select options={skillsSet} isMulti name="skills" value={data.skills} onChange={handleChangeSkills} />
+                                        <Select options={skillsSet} isMulti name="skills" value={pdata.skills} onChange={handleChangeSkills} />
                                     </Form.Group>
                                     <Form.Group>
                                         <Form.Label>Area of Interest</Form.Label>
-                                        <Form.Control type="text" placeholder="Seperated by :" value={data.areaofinterest} onChange={handleChange} name="areaofinterest" />
+                                        <Form.Control type="text" placeholder="Seperated by :" value={pdata.areaofinterest} onChange={handleChange} name="areaofinterest" />
 
                                     </Form.Group>
                                 </Form>
@@ -367,19 +407,33 @@ const Profile = () => {
                 {products.length === 0 &&  <><h4>No Product in Selling list</h4><br /></> }
                
                 {
+                    
                     products.map((product, i) => {
-                        if(product.isshow === "T")
-                        return (
-                            <button disabled key={i} class="follow-btn">
-                                <div>
-                                    <h5>{product.pname}</h5>
-                                    <h6>{product.desc}</h6>
-                                    <h5>{product.price}</h5>
-                                </div><button onClick={() => delete_Product(product.p_id)} className="white-text waves-effect waves-light  btn  pink darken-2 btn">Delete</button>
-                            </button>
+                        
+                        if(product.isshow === "T"){
+                            
+                            return (
+                                <button disabled key={i} class="follow-btn">
+                                    <div>
+                                        <h5>{product.pname}</h5>
+                                        <h6>{product.desc}</h6>
+                                        <h5>{product.price}</h5>
+                                    </div>
+                                    {loader ? (
+                                        <button  className="white-text waves-effect waves-light  btn  pink darken-2 btn">Loading</button>
+                                    ): (
+                                        <button onClick={() => delete_Product(product.p_id)} className="white-text waves-effect waves-light  btn  pink darken-2 btn">Delete</button>
+                                    )
 
-                        )
+                                    }
+                                    
+                                </button>
+    
+                            )
+                        }
+                        
                     })
+                    
                 }
 
 

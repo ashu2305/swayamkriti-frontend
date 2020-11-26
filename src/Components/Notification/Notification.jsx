@@ -1,4 +1,5 @@
-import React,{useEffect, useState} from "react"
+import React,{useEffect, useState} from "react";
+import {Redirect} from 'react-router-dom';
 import "./notification.css"
 import axios from 'axios';
 import {BASE,IMAGE_URL} from "../../config.json"
@@ -6,17 +7,31 @@ import {BASE,IMAGE_URL} from "../../config.json"
 import Header from "../util/Header"
 const Notification = () => {
     const [notifications,setNotifications]=useState([])
+    const [error, setError] = useState(0);
     useEffect(async()=>{
-        const res = await axios({
-            url: BASE + `/excal_admin/addnoti/`,
-            method: "GET",
-            headers: {
-                Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjA2NDgwODc1LCJqdGkiOiJkMzU3ZmZlMmEwMDg0ODQyYjVhOTgzMjMxMWM2YWFkNyIsInVzZXJfaWQiOjF9.1NxIO_ZCqNopPsF9Jnn4YOww_V7-Lh7BSGhJTB75Idg`
+        try{
+            const res = await axios({
+                url: BASE + `/excal_admin/addnoti/`,
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjA2NDgwODc1LCJqdGkiOiJkMzU3ZmZlMmEwMDg0ODQyYjVhOTgzMjMxMWM2YWFkNyIsInVzZXJfaWQiOjF9.1NxIO_ZCqNopPsF9Jnn4YOww_V7-Lh7BSGhJTB75Idg`
+                }
+            });
+            setNotifications(res.data.result);
+            console.log(res);
+        }
+        catch(error){
+            if (error.response.status === 401) {
+                setError(1);
+            }else{
+                setError(0);
             }
-        });
-        setNotifications(res.data.result);
-        console.log(res);
-    },[])
+        }
+        
+    },[]);
+    if (error === 1) {
+        return (<Redirect to='/logout' />);
+    }
     return(<>
     <Header/>
         <div className="container-fluid notification-background">
