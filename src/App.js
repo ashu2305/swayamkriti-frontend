@@ -13,7 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Mentor from './Components/Mentor/Mentor'
 import BuynSell from './Components/BuynSell/BuynSell';
 import Notification from './Components/Notification/Notification';
-
+import Admin from './Components/Admin/Admin'
 function App() {
   const initState = useContext(Store);
   const [state, dispatch] = useReducer(rootReducer, initState);
@@ -29,6 +29,7 @@ function App() {
           <Route path ="/mentor" component = {Mentor} />
           <Route path ="/sell" component = {BuynSell} />
           <Route path = "/notification" component = {Notification}/>
+          <Route path = "/adminlogin" component = {Admin}/>
           <Route path="/" component={Home} />
         </Switch>
       </BrowserRouter>
