@@ -97,10 +97,11 @@ const Profile = () => {
             ...data,
             image: filex
         });
+        console.log(filex);
     };
 
     const submit = async () => {
-        if (data.skills === [] || data.areaofinterest === '' || data.branch === '' || data.year === "" || data.rollno === "")
+        if (data.skills === [] || data.areaofinterest === '' ||  data.rollno === "")
             setInputError(true)
         else {
             await setInputError(false)
@@ -149,12 +150,12 @@ const Profile = () => {
             ...data,
             [e.target.name]: e.target.value
         });
-        if (data.skills === [] || data.areaofinterest === '' || data.branch === '' || data.year === "" || data.rollno === "")
+        if (data.skills === [] || data.areaofinterest === '' ||  data.rollno === "")
             await setInputError(true)
         else
             await setInputError(false)
     };
-
+    console.log(data);
     const handleClose = () => {
         setShow(false);
     };
@@ -167,11 +168,33 @@ const Profile = () => {
             ...data,
             skills: options
         })
-        if (data.skills === [] || data.areaofinterest === '' || data.branch === '' || data.year === "" || data.rollno === "")
+        if (data.skills === [] || data.areaofinterest === ''  || data.rollno === "")
             setInputError(true)
         else
             setInputError(false)
     }
+
+    const delete_Product = async e => {
+        const postData = {
+            "p_id":e
+        }
+        try{
+            const res = await axios({
+                url: `${config.BASE}/user/buysell/`,
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${localStorage.FBIdToken}`
+                },
+                data: postData
+            });
+            console.log(res);
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+
+
     return (<><Header />
         <div className="prof-back" style={data.name === "" ? { height: "100vh" } : { height: "auto" }}>
 
@@ -228,7 +251,7 @@ const Profile = () => {
                                     <Form.Group controlId="exampleForm.SelectCustom">
                                         <Form.Label>Starting Year</Form.Label>
                                         <Form.Control as="select" value={data.year} custom name="year" onChange={handleChange}>
-
+                                            <option>2021</option>
                                             <option>2020</option>
                                             <option>2019</option>
                                             <option>2018</option>
@@ -339,13 +362,14 @@ const Profile = () => {
                
                 {
                     products.map(product => {
+                        if(product.isshow === "T")
                         return (
                             <button disabled class="follow-btn">
                                 <div>
                                     <h5>{product.pname}</h5>
                                     <h6>{product.desc}</h6>
                                     <h5>{product.price}</h5>
-                                </div><button className="white-text waves-effect waves-light  btn  pink darken-2 btn">Delete</button>
+                                </div><button onClick={() => delete_Product(product.p_id)} className="white-text waves-effect waves-light  btn  pink darken-2 btn">Delete</button>
                             </button>
 
                         )

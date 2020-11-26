@@ -20,7 +20,7 @@ const BuynSell = () => {
 		pname: "",
 		desc: "",
 		price: "",
-		pimage: 'kcn2vbzm3c6lrqxliaw3'
+		pimage: ''
 	})
 	useEffect(() => {
 		const getProducts = async () => {
@@ -82,7 +82,7 @@ const BuynSell = () => {
 		setError(false)
 	};
 	const submit = async () => {
-		if (data.pname === '' || data.price === '' || data.desc === '')
+		if (data.pname === '' || data.price === '' || data.desc === '' || data.pimage === '')
 			setError(true)
 		else {
 			setError(false);
@@ -118,6 +118,13 @@ const BuynSell = () => {
 						//SetProducts(res.data.result);
 						SetAllProducts(res.data.result);
 						SetOriginalProducts(res.data.result);
+						await setData({
+							pname: "",
+							desc: "",
+							price: "",
+							pimage: ''
+						})
+						console.log(data);
 						console.log(res)
 					}
 					catch (err) {
@@ -133,6 +140,7 @@ const BuynSell = () => {
 			}
 		}
 	}
+	console.log(data);
 	const changeProductlist = async (e) => {
 		const value = e.target.value;
 		setSearch(value);
@@ -205,22 +213,22 @@ const BuynSell = () => {
 								trigger={<Button className="white-text waves-effect waves-light red darken-2 btn modal-trigger" node="button">Sell</Button>}
 							>
 								<div class="input-field">
-									<input id="name" type="text" class="validate" name="pname" onChange={handleChange} />
+									<input id="name" value={data.pname} type="text" class="validate" name="pname" onChange={handleChange} />
 									<label for="name">Name</label>
 								</div>
 								<div class="input-field">
-									<textarea id="desc" class="materialize-textarea" name="desc" onChange={handleChange}></textarea>
+									<textarea id="desc" value={data.desc} class="materialize-textarea" name="desc" onChange={handleChange}></textarea>
 									<label for="desc">Description</label>
 								</div>
 
 								<div class="input-field">
-									<input id="price" type="text" class="validate" name="price" onChange={handleChange} />
+									<input id="price" type="text" value={data.price} class="validate" name="price" onChange={handleChange} />
 									<label for="price">Price</label>
 								</div>
 								<div class="file-field input-field">
 									<div class="btn">
 										<span>Image</span>
-										<input type="file" name="pimage" onChange={fileChange} />
+										<input type="file" name="pimage"  onChange={fileChange} />
 									</div>
 									<div class="file-path-wrapper">
 										<input class="file-path validate" type="text" />
@@ -244,7 +252,7 @@ const BuynSell = () => {
 							</div>
 						</>
 					}
-					{products.length > 0 &&
+					{products.length > 0 && 
 						<>
 							<div className="row">
 								<div style={{ margin: "auto" }}>
