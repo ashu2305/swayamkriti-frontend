@@ -1,0 +1,52 @@
+.logo{
+    width: 30px;
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-top: 2%;
+	display: inline-block;
+}
+@media screen and (max-width:660px)
+{  
+.logo{
+    width: 30px;
+    margin-left: auto;
+}
+.s-logo{
+	margin-left: 0px !important;
+	margin-bottom: 15px;
+}
+.heading{
+	margin-left: 0 !important;
+}
+}
+
+.s-logo{
+	margin-left: 20px;
+	margin-bottom: 15px;
+}
+.heading
+{
+	margin-left: 20px;
+	display: inline-block;
+	font-family: 'Raleway', sans-serif;
+	margin-top: 0;
+}
+#mobile-nav
+{
+    background-color: black;
+    
+}
+
+.header-btn{
+	border: 1px red solid !important;
+	border-radius: 30px !important;;
+	background-color: red !important;
+}
+.header-btn:hover{
+	background-color:black !important;
+}
+
+.no-link{
+	text-decoration: none !important;
+	color: white !important;
+}

@@ -1,0 +1,29 @@
+.admin_background{
+    background: #16161a;
+    height: 100vh;
+    padding-top: 20px;
+    width: 100%;
+}
+.admin_card
+{
+    width: 450px!important;
+    background: white;
+    margin: auto;
+    text-align: center;
+    padding: 20px;
+    background-color: #242629;
+    color: white;
+}
+.adminModal
+{
+    width: 400px!important;
+}
+@media screen and (max-width:660px)
+{
+    .admin_card{
+        width: 90%;
+    }
+    .adminModal{
+        width: 90%;
+    }
+}

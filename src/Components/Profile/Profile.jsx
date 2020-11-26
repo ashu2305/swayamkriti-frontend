@@ -100,7 +100,7 @@ const Profile = () => {
     };
 
     const submit = async () => {
-        if (data.skills === [] || data.areaofinterest === '' || data.branch === '' || data.year === "" || data.rollno === "")
+        if ( data.areaofinterest === '' || data.branch === '' || data.year === "" || data.rollno === "")
             setInputError(true)
         else {
             await setInputError(false)
@@ -149,7 +149,7 @@ const Profile = () => {
             ...data,
             [e.target.name]: e.target.value
         });
-        if (data.skills === [] || data.areaofinterest === '' || data.branch === '' || data.year === "" || data.rollno === "")
+        if ( data.areaofinterest === '' || data.branch === '' || data.year === "" || data.rollno === "")
             await setInputError(true)
         else
             await setInputError(false)
@@ -167,7 +167,7 @@ const Profile = () => {
             ...data,
             skills: options
         })
-        if (data.skills === [] || data.areaofinterest === '' || data.branch === '' || data.year === "" || data.rollno === "")
+        if ( data.areaofinterest === '' || data.branch === '' || data.year === "" || data.rollno === "")
             setInputError(true)
         else
             setInputError(false)
