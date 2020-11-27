@@ -107,12 +107,12 @@ return(<>
                 >
                     <div class="input-field">
                         <input id="password" name="password" type="password" class="validate" onChange={handleChange} />
-                        <label for="password">New Password</label>
+                        <label htmlFor="password">New Password</label>
                         {passwordLength&&<p className="red-text">Password length should be atleast of 6 characters</p>}
                     </div>
                     <div class="input-field">
                         <input id="confirmpassword" name="password" type="password" class="validate" onChange={handleConfirmChange} />
-                        <label for="confirmpassword">Confirm Password</label>
+                        <label htmlFor="confirmpassword">Confirm Password</label>
                         {confPass&&<p className="red-text">Password does not match</p>}
                     </div>
                     
