@@ -13,6 +13,15 @@ export default function rootReducer(state, action) {
                 token: payload,
                 isAuth: true        
             }
+        case 'ONBOARDLOGIN':
+            localStorage.setItem('FBIdToken',  `${payload}`);
+            localStorage.setItem('isAdmin',  "hello");
+            console.log("hello user");
+            return {
+                ...state,
+                token: payload,
+                isAuthAdmin: true        
+            }
         case 'LOGOUT':
             localStorage.removeItem('FBIdToken')
             return {
@@ -20,6 +29,16 @@ export default function rootReducer(state, action) {
                 user: null,
                 token: null,
                 isAuth: false,             
+            }
+        case 'LOGOUTADMIN':
+            localStorage.removeItem('FBIdToken')
+            localStorage.removeItem('isAdmin')
+            return {
+                ...state,
+                user: null,
+                token: null,
+                isAuth: false,
+                isAuthAdmin: false             
             }
         case 'UPDATE' : 
             return{

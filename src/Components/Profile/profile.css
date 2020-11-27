@@ -51,6 +51,9 @@
       margin: auto;
     }
   }
+  .required {
+    color: red;
+  }
   .about-top{
     margin-top: 35px !important;;
   }

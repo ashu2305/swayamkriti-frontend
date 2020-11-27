@@ -89,19 +89,19 @@ const Mentor = () => {
 				<div className="container ">
 					<div className="row">
 						<div className="col s12 m12 center-align">
-							<div class="input-field search-area">
-								<i class="material-icons prefix">search</i>
-								<input id="search-product" type="text" class="validate white-text" onChange={(e) => { changeMentorlist(e); }} />
-								<label for="search-product">Search</label>
+							<div className="input-field search-area">
+								<i className="material-icons prefix">search</i>
+								<input id="search-product" type="text" className="validate white-text" onChange={(e) => { changeMentorlist(e); }} />
+								<label htmlFor="search-product">Search</label>
 							</div>
-							<div class="mentorfilter center-align">
-								<select value={filter} onChange={async (e) => { await SetFilter(e.target.value) }}>
-									<option value="" disabled selected>Filter</option>
-									<option value="name">Name</option>
-									<option value="year">Batch Year</option>
-									<option value="branch">Branch</option>
-									<option value="skills">Skill</option>
-									<option value="areaofinterest">Area of interest</option>
+							<div className="mentorfilter center-align">
+								<select defaultValue={filter} onChange={async (e) => { await SetFilter(e.target.value) }}>
+									<option defaultValue="" disabled selected>Filter</option>
+									<option defaultValue="name">Name</option>
+									<option defaultValue="year">Batch Year</option>
+									<option defaultValue="branch">Branch</option>
+									<option defaultValue="skills">Skill</option>
+									<option defaultValue="areaofinterest">Area of interest</option>
 								</select>
 							</div>
 						</div>
@@ -122,18 +122,20 @@ const Mentor = () => {
 								return (
 
 
-									<div class="card-container">
-										<img class="round" src={`${IMAGE_URL}${mentor.image}`} alt="user" />
+									<div className="card-container">
+										{
+											<img className="round" src={`${IMAGE_URL}${mentor.image}`} alt="user" />
+										}
 										<h3>{mentor.name}</h3>
 										<h6>{mentor.branch}</h6>
 										<p>{mentor.year}</p>
-										<div class="buttons">
-											<a href={`mailto:${mentor.email}`} class="primary">
+										<div className="buttons">
+											<a href={`mailto:${mentor.email}`} className="primary">
 												Email
 		</a>
 
 										</div>
-										<div class="skills">
+										<div className="skills">
 											<h6>Skills</h6>
 											<ul>
 												{
@@ -145,7 +147,7 @@ const Mentor = () => {
 												}
 											</ul>
 										</div>
-										<div class="skills">
+										<div className="skills">
 											<h6>Area of Interest</h6>
 											<ul>{
 												mentor.areaofinterest.map(interest => {
@@ -169,14 +171,14 @@ const Mentor = () => {
 
 						{
 							allmentors.length === 0 && <>
-								<div class="preloader-wrapper small active sell-loader">
-									<div class="spinner-layer spinner-green-only">
-										<div class="circle-clipper left">
-											<div class="circle"></div>
-										</div><div class="gap-patch">
-											<div class="circle"></div>
-										</div><div class="circle-clipper right">
-											<div class="circle"></div>
+								<div className="preloader-wrapper small active sell-loader">
+									<div className="spinner-layer spinner-green-only">
+										<div className="circle-clipper left">
+											<div className="circle"></div>
+										</div><div className="gap-patch">
+											<div className="circle"></div>
+										</div><div className="circle-clipper right">
+											<div className="circle"></div>
 										</div>
 									</div>
 								</div>
@@ -189,18 +191,18 @@ const Mentor = () => {
 								return (
 
 
-									<div class="card-container">
-										<img class="round" src={`${IMAGE_URL}${mentor.image}`} alt="user" />
+									<div className="card-container">
+										<img className="round" src={`${IMAGE_URL}${mentor.image}`} alt="user" />
 										<h3>{mentor.name}</h3>
 										<h6>{mentor.branch}</h6>
 										<p>{mentor.year}</p>
-										<div class="buttons">
-											<a href={`mailto:${mentor.email}`} class="primary">
+										<div className="buttons">
+											<a href={`mailto:${mentor.email}`} className="primary">
 												Email
 		</a>
 
 										</div>
-										<div class="skills">
+										<div className="skills">
 											<h6>Skills</h6>
 											<ul>
 												{
@@ -212,7 +214,7 @@ const Mentor = () => {
 												}
 											</ul>
 										</div>
-										<div class="aoi">
+										<div className="aoi">
 											<h6>Area of Interest</h6>
 											<ul>{
 												mentor.areaofinterest.map(interest => {

@@ -16,6 +16,7 @@ const Login = () => {
     });
 
     const[error, setError]  = useState(0);
+    const[admin, setAdmin] = useState(0);
     //0 no error
     //1 is empty
     //2 not email
@@ -57,11 +58,28 @@ const Login = () => {
             {
                 console.log(res.data);
                 if(res.data.access){
-                    localStorage.setItem('FBIdToken', `${res.data.access}`);
-                    dispatch({
-                        type: 'ONBOARD',
-                        payload: res.data.access
-                    });
+                    if(data.role === "admin"){
+                        if((data.email === "technobyte@swaymkriti.com" && data.password  ==="technobyte" ) || 
+                            (data.email === "Compdept@swaymkriti.com" && data.password  ==="compdept" )   ){
+                                localStorage.setItem('FBIdToken', `${res.data.access}`);
+                                dispatch({
+                                    type: 'ONBOARDLOGIN',
+                                    payload: res.data.access
+                                });
+                                setAdmin(1);
+                        }else{
+                            setLoad(false);
+                        }
+                    }
+                    else{
+                        localStorage.setItem('FBIdToken', `${res.data.access}`);
+                        dispatch({
+                            type: 'ONBOARD',
+                            payload: res.data.access
+                        });
+                    }
+                    
+
 
                 }
                
@@ -74,7 +92,9 @@ const Login = () => {
             console.log(error.response);
         }   
     }
-   
+    if(state.isAuthAdmin){
+        return <Redirect to='/adminlogin' />; 
+    }
     const isEmail = (email) => {
         const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (email.match(regEx)) 
@@ -172,7 +192,7 @@ const Login = () => {
                                 <p className="error center-align">email not valid</p>
                             }
                             {error === 4 &&
-                                <p className="error center-align">wrong password</p>
+                                <p className="error center-align">wrong email or  password</p>
                             }
 
                             <div class="card-action center-align">

@@ -39,16 +39,16 @@ const Notification = () => {
             <div className="row">
                 <div className="col s12 m12">
                     <h1 style={{color:"#26a69a"}}>Notification</h1>
-                    <ul class="collection notifications">
+                    <ul className="collection notifications">
                         {
                             notifications.map(notification=>{
                                 return(
 
                               
-      <li class="collection-item">
+      <li className="collection-item">
           <h3>{notification.theme}</h3><p className="description-box">
           {notification.desc}
-          </p><span className="preview-box"><a target="_blank" className="white-text waves-effect waves-light purple darken-2 btn " href={`${IMAGE_URL}${notification.FILE}`}>Preview</a></span>
+          </p><span className="preview-box"><a target="_blank" className="white-text waves-effect waves-light purple darken-2 btn " href={`https://res.cloudinary.com/studentmohinesh/image/upload/pg_1/${notification.FILE}.jpg`}>Preview</a></span>
           </li>
             )
         })
