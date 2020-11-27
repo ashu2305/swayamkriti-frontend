@@ -124,13 +124,13 @@ return(<>
                     </Button>}
                 >
                     <div class="input-field">
-                        <input id="password" value={data.password}name="password" type="password" class="validate" onChange={handleChange} />
-                        <label for="password">New Password</label>
+                        <input id="setpassword" value={data.password}name="password" placeholder="New password" type="password" class="validate" onChange={handleChange} />
+                        
                         {passwordLength&&<p className="red-text">Password length should be atleast of 6 characters</p>}
                     </div>
                     <div class="input-field">
-                        <input id="confirmpassword" value={consfirm} name="password" type="password" class="validate" onChange={handleConfirmChange} />
-                        <label for="confirmpassword">Confirm Password</label>
+                        <input id="confirmpassword" placeholder="Confirm Password" value={consfirm} name="confirmpassword" type="password" class="validate" onChange={handleConfirmChange} />
+                        
                         {confPass&&<p className="red-text">Password does not match</p>}
                     </div>
                     <>{loader&&<div style={{marginTop:"10px"}} class="preloader-wrapper active sell-loader">
