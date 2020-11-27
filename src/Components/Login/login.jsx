@@ -8,7 +8,6 @@ import Particles from "react-particles-js"
 
 const Login = () => {
     const{ state, dispatch } = useContext(Store);
-    const [page, setPage] = useState(0);
     const[data, setData] = useState({
         email:'',
         password:'',
@@ -16,7 +15,6 @@ const Login = () => {
     });
 
     const[error, setError]  = useState(0);
-    const[admin, setAdmin] = useState(0);
     //0 no error
     //1 is empty
     //2 not email
@@ -60,23 +58,31 @@ const Login = () => {
                 if(res.data.access){
                     if(data.role === "admin"){
                         if((data.email === "technobyte@swaymkriti.com" ) || 
-                            (data.email === "Compdept@swaymkriti.com"  )   ){
+                            (data.email === "compdept@swaymkriti.com"  )   ){
                                 localStorage.setItem('FBIdToken', `${res.data.access}`);
                                 dispatch({
                                     type: 'ONBOARDLOGIN',
                                     payload: res.data.access
                                 });
-                                setAdmin(1);
+                                
                         }else{
                             setLoad(false);
                         }
                     }
                     else{
-                        localStorage.setItem('FBIdToken', `${res.data.access}`);
-                        dispatch({
-                            type: 'ONBOARD',
-                            payload: res.data.access
-                        });
+                        if((data.email === "technobyte@swaymkriti.com" ) || 
+                            (data.email === "compdept@swaymkriti.com"  )   ){
+                                setLoad(false);
+                                window.alert("Please login with ADMIN");
+                        }
+                        else{
+                            localStorage.setItem('FBIdToken', `${res.data.access}`);
+                            dispatch({
+                                type: 'ONBOARD',
+                                payload: res.data.access
+                            });
+                        }
+                        
                     }
                     
 
@@ -134,7 +140,7 @@ const Login = () => {
                     <div className="col s12 offset-m3 m6">
                         <div class="card loginBox">
                             <div class="card-content white-text center-align">
-                                <div className="swyamHeading" >SWYAMKRITI</div><br/>
+                                <div className="swyamHeading" >SWAYAMKRITI</div><br/>
                                 <h6>Welcome Here Again</h6>
                                 <h1 className="loginHeading">Login</h1>
                                 <div class="input-field">

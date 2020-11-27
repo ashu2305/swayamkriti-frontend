@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import logo from "../../assets/logo.png";
 import { Modal, Button, } from 'react-materialize'
 import "./admin.css"
 import Heading from "./Header"
 import M from "materialize-css"
+import Store from '../../store/store';
 import axios from 'axios';
 import config from '../../config.json';
+import { Redirect } from "react-router-dom";
 const Admin = () => {
+    const {state} = useContext(Store);
     const [data,setData] = useState({
         desc:"",
         theme:"",
@@ -22,6 +25,7 @@ const Admin = () => {
         })
         
     }
+    
     const fileChange = e => {
         let filex = e.target.files[0]
         setData({
@@ -35,6 +39,9 @@ const Admin = () => {
         else
         setinputError(false);
     })
+    if(!state.isAuthAdmin){
+        return <Redirect to='/logout' />;
+    }
     const submit = async () => {
 
         {

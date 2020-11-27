@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import md5 from 'md5';
 import axios from 'axios';
 import config from '../../config.json';
-import {Link, Redirect} from "react-router-dom"
+import { Redirect} from "react-router-dom"
 import Particles from "react-particles-js";
 import CreatePassword from '../util/CreatePassword';
 const Otp = (props) => {
@@ -49,7 +49,7 @@ const Otp = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if(md5(backOtp) === md5(otp))
+        if(backOtp === md5(otp))
         {
             setLoad(true);
             if(props.mode==="signup")
@@ -62,7 +62,7 @@ const Otp = (props) => {
             }
             
         }else{
-            console.log(md5(otp));
+            console.log(md5(otp) , backOtp);
             window.alert("OTP does not match Please try again");
         }
     }
@@ -122,7 +122,7 @@ const Otp = (props) => {
                     <div className="col s12 offset-m3 m6">
                         <div class="card signupBox">
                             <div class="card-content white-text center-align">
-                            <div className="swyamHeading" >SWYAMKRITI</div><br/>
+                            <div className="swyamHeading" >SWAYAMKRITI</div><br/>
                                 <h1 className="signupHeading">OTP</h1>
                                 <p>One-time Password has been sent to your entered email address, Kindly fill it below</p>
                                 <div class="input-field">

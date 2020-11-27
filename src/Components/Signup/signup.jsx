@@ -36,9 +36,6 @@ const Signup = () => {
     }
 
     const otpSent = async() => {
-        const postData = {
-            email : data.email,
-        }
         try{
             const res = await axios({
                 url: `${config.BASE}/user/sendotp/${data.email}/`,
@@ -46,7 +43,7 @@ const Signup = () => {
             });
             if(res.data)
             {
-                if(res.data.status === "already registered"){
+                if(res.data.otp === "exist"){
                     setLoad(false);
                     window.alert("Email already registered");
                 }else{
@@ -113,7 +110,7 @@ const Signup = () => {
                     <div className="col s12 offset-m3 m6">
                         <div class="card signupBox">
                             <div class="card-content white-text center-align">
-                            <div className="swyamHeading" >SWYAMKRITI</div><br/>
+                            <div className="swyamHeading" >SWAYAMKRITI</div><br/>
                                 <h1 className="signupHeading">Sign Up</h1>
                                 <div class="input-field">
                                     <input id="name"

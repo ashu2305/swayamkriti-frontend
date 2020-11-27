@@ -54,7 +54,7 @@ const CreatePassword=(props)=> {
     const onSubmit = (e) => {
         e.preventDefault();
         if(data.password === data.confirmPassword) {
-            if(data.password.length <6){
+            if(data.password.length >=6){
                 if(data.password !== '' && data.confirmPassword !== '') {
                     setError(0);
                     setLoad(true);
@@ -83,7 +83,7 @@ const CreatePassword=(props)=> {
                     <div className="col s12 offset-m3 m6">
                         <div class="card forgotpasswordBox">
                             <div class="card-content white-text center-align">
-                            <div className="swyamHeading" >SWYAMKRITI</div><br/>
+                            <div className="swyamHeading" >SWAYAMKRITI</div><br/>
                                 <h1 className="forgotpasswordHeading">Change Password</h1>
                                 <div class="input-field">
                                     <input id="password" 
