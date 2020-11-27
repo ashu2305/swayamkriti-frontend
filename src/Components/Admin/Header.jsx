@@ -4,30 +4,57 @@ import "./header.css"
 import logo from "../../assets/logo.png";
 import {Navbar,Icon,NavItem,Modal,Button} from "react-materialize";
 import Store from '../../store/store';
-
+import axios from 'axios';
+import config from '../../config.json';
 
 const Header = () =>{
     const [data,setData] = useState({
-        oldPassword:"",
-        newpassword:"",
-        confirmpassword:""
+        password:""
     })
     const [inputError,setInputError] = useState(false);
+    const [passwordLength,setpasswordLength] = useState(false)
+    const [confPass,setConfPass] = useState(false)
+    const [consfirm,setConfirm] = useState("")
     useEffect(()=>{
-        if(data.oldPassword==""||data.newpassword==""||data.confirmpassword=="")
+        if(data.password=="")
         setInputError(true);
         else
         setInputError(false);
+        if(data.password.length<6)
+        setpasswordLength(true)
+        else
+        setpasswordLength(false);
+        if(consfirm!=data.password)
+        setConfPass(true)
+        else
+        setConfPass(false)
     })
     const handleChange=(e)=>{
         setData({
             ...data,
             [e.target.name]:e.target.value
         })
-        console.log(data)
+        
     }
-    const submit = () => {
-
+    const handleConfirmChange=(e)=>{
+        setConfirm(e.target.value)
+    }
+    const changePassword = async () => {
+        console.log(data)
+        try{
+            const result = await axios({
+                url: `${config.BASE}/excal_admin/changepass/`,
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("FBIdToken")}`
+                },
+                data: {password:data.password}
+            });
+            console.log(result)
+        }
+        catch(err){
+            console.log(err)
+        }
     }
 return(<>
   <Navbar
@@ -51,7 +78,7 @@ return(<>
         <>
         <Modal
                     actions={[<>{inputError&&<h4>Fill all details</h4>}</>,
-                        <Button flat node="button" waves="green" disabled = {inputError}onClick={submit}>Submit</Button>,
+                        <Button flat node="button" waves="green" disabled = {inputError||passwordLength||confPass} onClick={changePassword}>Submit</Button>,
                         <Button flat modal="close" node="button" waves="red">Close</Button>
                     ]}
                     bottomSheet={false}
@@ -74,26 +101,24 @@ return(<>
                     }}
                     className="adminModal"
                     root={document.body}
-                    trigger={<Button id="changePassword"className="white-text waves-effect waves-light purple darken-2 btn">
+                    trigger={<Button id="changePassword"className="white-text waves-effect adminChangepassword waves-light purple darken-2">
                     Change Password
                     </Button>}
                 >
                     <div class="input-field">
-                        <input id="oldPassword" name="oldPassword" type="password" class="validate" onChange={handleChange} />
-                        <label for="oldPassword">Old Password</label>
+                        <input id="password" name="password" type="password" class="validate" onChange={handleChange} />
+                        <label for="password">New Password</label>
+                        {passwordLength&&<p className="red-text">Password length should be atleast of 6 characters</p>}
                     </div>
                     <div class="input-field">
-                        <input id="newpassowrd" name="newpassword" type="password" class="validate"  onChange={handleChange}/>
-                        <label for="newpassowrd">New Password</label>
-                    </div>
-                    <div class="input-field">
-                        <input id="confirmpassword" name="confirmpassword" type="password" class="validate"  onChange={handleChange}/>
+                        <input id="confirmpassword" name="password" type="password" class="validate" onChange={handleConfirmChange} />
                         <label for="confirmpassword">Confirm Password</label>
+                        {confPass&&<p className="red-text">Password does not match</p>}
                     </div>
                     
                 </Modal>
 
-            <NavItem  className="white-text waves-effect waves-light  btn"><Link style={{color:"white",textDecoration:"none"}} to='/logout'>
+            <NavItem  className="white-text waves-effect waves-light  btn"><Link style={{color:"white",textDecoration:"none"}} onClick={(e)=>{localStorage.removeItem("FBIdToken");localStorage.removeItem("isAdmin")}} to='/logout'>
               Logout</Link>
             </NavItem>
         </>
