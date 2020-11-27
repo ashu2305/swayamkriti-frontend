@@ -38,7 +38,7 @@ const Mentor = () => {
 				SetAllmentors(mentors)
 			}
 			catch (err) {
-				if (error.response.status === 401) {
+				if (err.response.status === 401) {
                     setError(1);
                 }else{
 					setError(0);
