@@ -2,7 +2,7 @@
     background: #16161a;
     height: 100vh;
     padding-top: 20px;
-    width: 100%;
+    
 }
 .admin_card
 {
@@ -18,12 +18,14 @@
 {
     width: 400px!important;
 }
-@media screen and (max-width:660px)
+@media screen and (max-width:800px)
 {
     .admin_card{
-        width: 90%;
+        width: 90%!important;
     }
     .adminModal{
-        width: 90%;
+        width: 90%!important;
     }
+    .admin_background
+    {width: 100%;}
 }

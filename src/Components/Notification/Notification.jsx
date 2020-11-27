@@ -14,7 +14,7 @@ const Notification = () => {
                 url: BASE + `/excal_admin/addnoti/`,
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjA2NDgwODc1LCJqdGkiOiJkMzU3ZmZlMmEwMDg0ODQyYjVhOTgzMjMxMWM2YWFkNyIsInVzZXJfaWQiOjF9.1NxIO_ZCqNopPsF9Jnn4YOww_V7-Lh7BSGhJTB75Idg`
+                    Authorization: `Bearer ${localStorage.getItem("FBIdToken")}`
                 }
             });
             setNotifications(res.data.result);

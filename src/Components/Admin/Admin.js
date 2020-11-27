@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import logo from "../../assets/logo.png";
 import { Modal, Button, } from 'react-materialize'
 import "./admin.css"
@@ -14,6 +14,7 @@ const Admin = () => {
     })
     const [show, setShow] = useState(false);
     const [loader,setLoader] = useState(false);
+    const [inputError,setinputError] = useState(false);
     const handleChange=(e)=>{
         setData({
             ...data,
@@ -28,7 +29,12 @@ const Admin = () => {
             FILE: filex
         });
     };
-
+    useEffect(()=>{
+        if(data.desc==""||data.theme==""||data.FILE=="")
+        setinputError(true);
+        else
+        setinputError(false);
+    })
     const submit = async () => {
         console.log(data);
         {
@@ -43,7 +49,7 @@ const Admin = () => {
                     url: `${config.BASE}/excal_admin/addnoti/`,
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjA2NDgwODc1LCJqdGkiOiJkMzU3ZmZlMmEwMDg0ODQyYjVhOTgzMjMxMWM2YWFkNyIsInVzZXJfaWQiOjF9.1NxIO_ZCqNopPsF9Jnn4YOww_V7-Lh7BSGhJTB75Idg`
+                        Authorization: `Bearer ${localStorage.getItem("FBIdToken")}`
                     },
                     data: formData
                 });
@@ -77,8 +83,8 @@ const Admin = () => {
                 <img src={logo} height={60} width={60} /><h3>Swyamkriti</h3>
                 <h1>Add an announcement</h1>
                 <Modal onHide={show}
-                    actions={[
-                        <Button flat node="button" waves="green" onClick={submit}>Submit</Button>,
+                    actions={[<>{inputError&&<h3>Fill all details</h3>}</>,
+                        <Button flat node="button" waves="green" disabled = {inputError} onClick={submit}>Submit</Button>,
                         <Button flat modal="close" node="button" waves="red" id="closeAddNotification">Close</Button>
                     ]}
                     bottomSheet={false}
