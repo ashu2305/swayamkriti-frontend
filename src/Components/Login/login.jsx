@@ -59,8 +59,8 @@ const Login = () => {
                 console.log(res.data);
                 if(res.data.access){
                     if(data.role === "admin"){
-                        if((data.email === "technobyte@swaymkriti.com" && data.password  ==="technobyte" ) || 
-                            (data.email === "Compdept@swaymkriti.com" && data.password  ==="compdept" )   ){
+                        if((data.email === "technobyte@swaymkriti.com" ) || 
+                            (data.email === "Compdept@swaymkriti.com"  )   ){
                                 localStorage.setItem('FBIdToken', `${res.data.access}`);
                                 dispatch({
                                     type: 'ONBOARDLOGIN',
