@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Link} from 'react-router-dom';
 import "./header.css"
 import logo from "../../assets/logo.png";
@@ -7,6 +7,28 @@ import Store from '../../store/store';
 
 
 const Header = () =>{
+    const [data,setData] = useState({
+        oldPassword:"",
+        newpassword:"",
+        confirmpassword:""
+    })
+    const [inputError,setInputError] = useState(false);
+    useEffect(()=>{
+        if(data.oldPassword==""||data.newpassword==""||data.confirmpassword=="")
+        setInputError(true);
+        else
+        setInputError(false);
+    })
+    const handleChange=(e)=>{
+        setData({
+            ...data,
+            [e.target.name]:e.target.value
+        })
+        console.log(data)
+    }
+    const submit = () => {
+
+    }
 return(<>
   <Navbar
   alignLinks="right"
@@ -28,12 +50,13 @@ return(<>
   >
         <>
         <Modal
-                    actions={[
-                        <Button flat modal="close" node="button" waves="green">Close</Button>
+                    actions={[<>{inputError&&<h4>Fill all details</h4>}</>,
+                        <Button flat node="button" waves="green" disabled = {inputError}onClick={submit}>Submit</Button>,
+                        <Button flat modal="close" node="button" waves="red">Close</Button>
                     ]}
                     bottomSheet={false}
                     fixedFooter={false}
-                    header="Modal "
+                    header="Change Password"
                     id="Modal-0"
                     open={false}
                     options={{
@@ -56,22 +79,18 @@ return(<>
                     </Button>}
                 >
                     <div class="input-field">
-                        <input id="theme" type="text" class="validate" />
-                        <label for="theme">Heading</label>
+                        <input id="oldPassword" name="oldPassword" type="password" class="validate" onChange={handleChange} />
+                        <label for="oldPassword">Old Password</label>
                     </div>
                     <div class="input-field">
-                        <input id="desc" type="text" class="validate" />
-                        <label for="desc">Description</label>
+                        <input id="newpassowrd" name="newpassword" type="password" class="validate"  onChange={handleChange}/>
+                        <label for="newpassowrd">New Password</label>
                     </div>
-                    <div class="file-field input-field">
-                        <div class="btn">
-                            <span>File</span>
-                            <input type="file" />
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text" />
-                        </div>
+                    <div class="input-field">
+                        <input id="confirmpassword" name="confirmpassword" type="password" class="validate"  onChange={handleChange}/>
+                        <label for="confirmpassword">Confirm Password</label>
                     </div>
+                    
                 </Modal>
 
             <NavItem  className="white-text waves-effect waves-light  btn"><Link style={{color:"white",textDecoration:"none"}} to='/logout'>
