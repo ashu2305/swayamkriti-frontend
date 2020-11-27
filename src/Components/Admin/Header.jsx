@@ -6,7 +6,7 @@ import {Navbar,Icon,NavItem,Modal,Button} from "react-materialize";
 import Store from '../../store/store';
 import axios from 'axios';
 import config from '../../config.json';
-
+import M from "materialize-css"
 const Header = () =>{
     const [data,setData] = useState({
         password:""
@@ -14,6 +14,7 @@ const Header = () =>{
     const [inputError,setInputError] = useState(false);
     const [passwordLength,setpasswordLength] = useState(false)
     const [confPass,setConfPass] = useState(false)
+    const [loader,setLoader] = useState(false);
     const [consfirm,setConfirm] = useState("")
     useEffect(()=>{
         if(data.password=="")
@@ -40,8 +41,9 @@ const Header = () =>{
         setConfirm(e.target.value)
     }
     const changePassword = async () => {
-        console.log(data)
+        
         try{
+            setLoader(true)
             const result = await axios({
                 url: `${config.BASE}/excal_admin/changepass/`,
                 method: "POST",
@@ -50,10 +52,26 @@ const Header = () =>{
                 },
                 data: {password:data.password}
             });
-            console.log(result)
+            if(result.data)
+            {
+                M.toast({html:"Password Changed",classes: "sellsuccess"})
+                document.getElementById("closeChangepass").click();
+                setData({
+                    ...data,
+                    password:""
+                })
+                setConfirm("");
+            }
+            setLoader(false)
         }
         catch(err){
             console.log(err)
+            setLoader(false);
+            setData({
+                ...data,
+                password:""
+            })
+            setConfirm("");
         }
     }
 return(<>
@@ -79,7 +97,7 @@ return(<>
         <Modal
                     actions={[<>{inputError&&<h4>Fill all details</h4>}</>,
                         <Button flat node="button" waves="green" disabled = {inputError||passwordLength||confPass} onClick={changePassword}>Submit</Button>,
-                        <Button flat modal="close" node="button" waves="red">Close</Button>
+                        <Button flat modal="close" node="button" waves="red" id="closeChangepass">Close</Button>
                     ]}
                     bottomSheet={false}
                     fixedFooter={false}
@@ -106,19 +124,29 @@ return(<>
                     </Button>}
                 >
                     <div class="input-field">
-                        <input id="password" name="password" type="password" class="validate" onChange={handleChange} />
-                        <label htmlFor="password">New Password</label>
+                        <input id="setpassword" value={data.password}name="password" placeholder="New password" type="password" class="validate" onChange={handleChange} />
+                        
                         {passwordLength&&<p className="red-text">Password length should be atleast of 6 characters</p>}
                     </div>
                     <div class="input-field">
-                        <input id="confirmpassword" name="password" type="password" class="validate" onChange={handleConfirmChange} />
-                        <label htmlFor="confirmpassword">Confirm Password</label>
+                        <input id="confirmpassword" placeholder="Confirm Password" value={consfirm} name="confirmpassword" type="password" class="validate" onChange={handleConfirmChange} />
+                        
                         {confPass&&<p className="red-text">Password does not match</p>}
                     </div>
-                    
+                    <>{loader&&<div style={{marginTop:"10px"}} class="preloader-wrapper active sell-loader">
+                                <div class="spinner-layer spinner-white-only">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div><div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div><div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+	</div>	}</>,
                 </Modal>
 
-            <NavItem  className="white-text waves-effect waves-light  btn"><Link style={{color:"white",textDecoration:"none"}} onClick={(e)=>{localStorage.removeItem("FBIdToken");localStorage.removeItem("isAdmin")}} to='/logout'>
+            <NavItem  className="white-text waves-effect waves-light  btn"><Link style={{color:"white",textDecoration:"none"}} to='/logout'>
               Logout</Link>
             </NavItem>
         </>

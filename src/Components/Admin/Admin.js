@@ -20,7 +20,7 @@ const Admin = () => {
             ...data,
             [e.target.name]:e.target.value
         })
-        console.log(data)
+        
     }
     const fileChange = e => {
         let filex = e.target.files[0]
@@ -36,7 +36,7 @@ const Admin = () => {
         setinputError(false);
     })
     const submit = async () => {
-        console.log(data);
+
         {
             try {
                 setLoader(true)
@@ -53,7 +53,6 @@ const Admin = () => {
                     },
                     data: formData
                 });
-                console.log(result)
                 if (result.data.result=="done") {
                     document.getElementById("closeAddNotification").click();
                     M.toast({html:result.data.result,classes: "sellsuccess"});
@@ -83,13 +82,14 @@ const Admin = () => {
                 <img src={logo} height={60} width={60} /><h3>Swyamkriti</h3>
                 <h1>Add an announcement</h1>
                 <Modal onHide={show}
-                    actions={[<>{inputError&&<h3>Fill all details</h3>}</>,
+                    actions={[
+                    <>{inputError&&<h3>Fill all details</h3>}</>,
                         <Button flat node="button" waves="green" disabled = {inputError} onClick={submit}>Submit</Button>,
                         <Button flat modal="close" node="button" waves="red" id="closeAddNotification">Close</Button>
                     ]}
                     bottomSheet={false}
                     fixedFooter={false}
-                    header="Modal "
+                    header="Add notification"
                     id="Modal-0"
                     open={false}
                     options={{
