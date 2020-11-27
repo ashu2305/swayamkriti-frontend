@@ -10,6 +10,11 @@ const Logout=()=> {
             dispatch({
                 type : 'LOGOUT'
             });
+        }
+        if(state.isAuthAdmin){
+            dispatch({
+                type : 'LOGOUTADMIN'
+            });
         }    
     });
     

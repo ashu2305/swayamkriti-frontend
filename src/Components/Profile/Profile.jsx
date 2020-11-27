@@ -19,7 +19,7 @@ const Profile = () => {
         program: "",
         skills: [],
         areaofinterest: '',
-        image: '',
+        image: 'WhatsApp_Image_2020-11-26_at_10.44.30_PM_1_t5mowc.jpg',
         year: '',
         email: '',
         gender: '',
@@ -75,13 +75,19 @@ const Profile = () => {
                         let x = input.skills.split(' : ');
                         x.map((item) => (y.push({ value: item, label: item })));
                     }
+                    var imag = true;
+                    if(((input.image ==="None") || (input.image === undefined))){
+                        console.log("Hello image");
+                        imag  = false;
+                    }
+                    console.log(imag);
                     setData({
                         rollno: input.rollno ? input.rollno : "",
                         branch: input.branch ? input.branch : "",
                         program: input.program ? input.program : "",
                         skills: y,
                         areaofinterest: input.areaofinterest ? input.areaofinterest : '',
-                        image: (input.image !== undefined ) ? input.image : (input.gender === 'M') ? 'WhatsApp_Image_2020-11-26_at_10.44.30_PM_1_t5mowc.jpg' : 'WhatsApp_Image_2020-11-26_at_10.44.30_PM_fwbvr3.jpg' ,
+                        image: (imag === true) ? input.image : (input.gender === 'M') ? 'WhatsApp_Image_2020-11-26_at_10.44.30_PM_1_t5mowc.jpg' : 'WhatsApp_Image_2020-11-26_at_10.44.30_PM_fwbvr3.jpg' ,
                         year: input.year ? input.year : '',
                         email: input.email ? input.email : '',
                         gender: input.gender ? input.gender : '',
@@ -94,7 +100,7 @@ const Profile = () => {
                         program: input.program ? input.program : "",
                         skills: y,
                         areaofinterest: input.areaofinterest ? input.areaofinterest : '',
-                        image: (input.image !== "None") ? input.image : 'kcn2vbzm3c6lrqxliaw3',
+                        image: (input.image !== undefined  ) ? input.image : '' ,
                         year: input.year ? input.year : '',
                         email: input.email ? input.email : '',
                         gender: input.gender ? input.gender : '',
@@ -281,7 +287,7 @@ const Profile = () => {
                             <Modal.Body>
                                 <Form>
                                     <Form.Group >
-                                        <Form.Label>Roll No</Form.Label>
+                                        <Form.Label>Roll No<span class="required">*</span></Form.Label>
                                         <Form.Control type="number" value={pdata.rollno} placeholder="Enter Roll No" onChange={handleChange} name="rollno" />
                                     </Form.Group>
                                     <Form.Group >
@@ -289,7 +295,7 @@ const Profile = () => {
                                         <Form.Control type="file" placeholder="Enter Roll No" onChange={fileChange} />
                                     </Form.Group>
                                     <Form.Group controlId="exampleForm.SelectCustom">
-                                        <Form.Label>Starting Year</Form.Label>
+                                        <Form.Label>Starting Year<span class="required">*</span></Form.Label>
                                         <Form.Control as="select" value={pdata.year} custom name="year" onChange={handleChange}>
 
                                             <option value="" disabled selected>Choose year</option>
@@ -340,16 +346,7 @@ const Profile = () => {
 
                                         </Form.Control>
                                     </Form.Group>
-                                    <Form.Group controlId="exampleForm.SelectCustom">
-                                        <Form.Label>Program</Form.Label>
-                                        <Form.Control as="select" value={pdata.program} custom name="program" onChange={handleChange}>
-                                            <option value="" disabled selected>Choose Program</option>
-                                            <option>B. Tech </option>
-                                            <option>M.Tech</option>
-                                            <option>MCA</option>
-                                            <option>MBA</option>
-                                        </Form.Control>
-                                    </Form.Group>
+                                    
                                     <Form.Group controlId="exampleForm.SelectCustom">
                                         <Form.Label>Branch</Form.Label>
                                         <Form.Control as="select" custom name="branch" value={pdata.branch} onChange={handleChange}>
@@ -361,14 +358,16 @@ const Profile = () => {
                                             <option>Information Technology</option>
                                             <option>Mechanical Engineering</option>
                                             <option>Industrial {'&'} Production Engineering</option>
+                                            <option>MCA</option>
+                                            <option>MBA</option>
                                         </Form.Control>
                                     </Form.Group>
                                     <Form.Group>
-                                        <Form.Label>Skills</Form.Label>
+                                        <Form.Label>Skills<span class="required">*</span></Form.Label>
                                         <Select options={skillsSet} isMulti name="skills" value={pdata.skills} onChange={handleChangeSkills} />
                                     </Form.Group>
                                     <Form.Group>
-                                        <Form.Label>Area of Interest</Form.Label>
+                                        <Form.Label>Area of Interest<span class="required">*</span></Form.Label>
                                         <Form.Control type="text" placeholder="Seperated by :" value={pdata.areaofinterest} onChange={handleChange} name="areaofinterest" />
 
                                     </Form.Group>

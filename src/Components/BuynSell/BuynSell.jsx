@@ -23,7 +23,7 @@ const BuynSell = () => {
 		pimage: ''
 	})
 	useEffect(()=>{
-		if (data.pname === '' || data.price === '' || data.desc === '')
+		if (data.pname === '' || data.price === '' || data.desc === '' || data.pimage==="")
 			setError(true)
 			else
 			setError(false)
@@ -139,7 +139,7 @@ const BuynSell = () => {
 				}
 			} catch (err) {
 				console.log(err)
-				
+
 				M.toast({ html: "Error Occured" })
 			}
 		}
