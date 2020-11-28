@@ -64,7 +64,7 @@ const Profile = () => {
                     setUser(res.data);
                     setProducts(res.data.products)
 
-                    console.log(res.data);
+                    //console.log(res.data);
                     let input = res.data.result;
 
                     let y = [];
@@ -77,10 +77,10 @@ const Profile = () => {
                     }
                     var imag = true;
                     if(((input.image ==="None") || (input.image === undefined))){
-                        console.log("Hello image");
+                        //console.log("Hello image");
                         imag  = false;
                     }
-                    console.log(imag);
+                    //console.log(imag);
                     setData({
                         rollno: input.rollno ? input.rollno : "",
                         branch: input.branch ? input.branch : "",
@@ -93,7 +93,7 @@ const Profile = () => {
                         gender: input.gender ? input.gender : '',
                         name: input.name ? input.name : ''
                     })
-                    console.log(data.image);
+                    //console.log(data.image);
                     setPData({
                         rollno: input.rollno ? input.rollno : "",
                         branch: input.branch ? input.branch : "",
@@ -114,7 +114,7 @@ const Profile = () => {
                 } else {
                     setError(0);
                 }
-                console.log(error);
+                //console.log(error);
             }
         };
         getUser();
@@ -124,7 +124,7 @@ const Profile = () => {
         
         if (pdata.skills===null||pdata.skills===[]|| pdata.areaofinterest === ''  || pdata.year==='' || pdata.rollno === ""){
             setInputError(true)
-            console.log("hello");
+            //console.log("hello");
         }
             
         else
@@ -140,12 +140,12 @@ const Profile = () => {
             ...pdata,
             image: filex
         });
-        console.log(filex);
+        //console.log(filex);
     };
 
     const submit = async () => {
 
-        console.log(pdata);
+        //console.log(pdata);
         {
             await setInputError(false)
             try {
@@ -182,7 +182,7 @@ const Profile = () => {
                 }
             }
             catch (error) {
-                console.log(error);
+                //console.log(error);
             }
         }
 
@@ -195,7 +195,7 @@ const Profile = () => {
             [e.target.name]: e.target.value
         });
     };
-    console.log(data);
+    //console.log(data);
     const handleClose = () => {
         setShow(false);
     };
@@ -226,19 +226,19 @@ const Profile = () => {
                 },
                 data: postData
             });
-            console.log(res);
+            //console.log(res);
             setLoader(false);
             setVerified(true);
         }
         catch(error){
-            console.log(error);
+            //console.log(error);
             setLoader(false);
         }
     }
     if(verified === true){
         return <Redirect to='/profile1' />;
     }
-    console.log(pdata);
+    //console.log(pdata);
 
 
     return (<><Header />

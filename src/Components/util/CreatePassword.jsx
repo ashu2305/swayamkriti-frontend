@@ -48,7 +48,7 @@ const CreatePassword=(props)=> {
             setLoad(false);
             window.alert('please try again');
             setVerified(true);
-            console.log(error.response);
+            //console.log(error.response);
         }
     }
     const onSubmit = (e) => {

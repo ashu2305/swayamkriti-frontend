@@ -16,7 +16,7 @@ export default function rootReducer(state, action) {
         case 'ONBOARDLOGIN':
             localStorage.setItem('FBIdToken',  `${payload}`);
             localStorage.setItem('isAdmin',  "hello");
-            console.log("hello user");
+            //console.log("hello user");
             return {
                 ...state,
                 token: payload,

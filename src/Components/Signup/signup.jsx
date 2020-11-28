@@ -51,11 +51,11 @@ const Signup = () => {
                     setPage(2);
                     setLoad(false);
                 }
-                console.log(res.data);
+                //console.log(res.data);
             }            
         }catch(error){
             setLoad(false);
-            console.log(error);
+            //console.log(error);
         }   
     }
 
@@ -70,14 +70,14 @@ const Signup = () => {
     const onSubmit = e =>{
 
         e.preventDefault();
-        console.log(data);
+        //console.log(data);
         if(data.password === data.confirmPassword){
-            console.log(data.password.length );
+            //console.log(data.password.length );
             if(data.email !== '' && data.password !== '' && data.confirmPassword !== '' && data.name !== '' && data.gender !== ''  ){
                 if(data.password.length >= 6){
                     if(isEmail(data.email)){
                         setLoad(true);
-                        console.log("verified");
+                        //console.log("verified");
                         otpSent();
                         
                         
@@ -91,11 +91,11 @@ const Signup = () => {
                 setError(1);
             }
         }else{
-            console.log("pass error");
+            //console.log("pass error");
             setError(3);
         }
         
-        console.log("hello in submit");
+        //console.log("hello in submit");
     }
     if(page === 2){
         return (<Otp  otp={OTP} data={data}  mode={"signup"}   />);

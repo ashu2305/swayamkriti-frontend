@@ -65,7 +65,7 @@ const Header = () =>{
             setLoader(false)
         }
         catch(err){
-            console.log(err)
+           
             setLoader(false);
             setData({
                 ...data,

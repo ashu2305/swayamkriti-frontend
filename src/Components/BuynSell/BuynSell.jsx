@@ -42,13 +42,13 @@ const BuynSell = () => {
 				//SetProducts(res.data.result);
 				SetAllProducts(res.data.result);
 				SetOriginalProducts(res.data.result);
-				console.log(res)
+				// console.log(res)
 			}
 			catch (err) {
-				console.log(err.response)
+				// console.log(err.response)
 				if(err.response === undefined )
 				{
-					console.log("Please try Again");
+					// console.log("Please try Again");
 					setError(1);
 				}
 				else if (err && err.response.status === 401) {
@@ -76,7 +76,7 @@ const BuynSell = () => {
 	};
 	const fileChange = e => {
 		let filex = e.target.files[0]
-		console.log(filex)
+		// console.log(filex)
 		setData({
 			...data,
 			pimage: filex
@@ -103,7 +103,7 @@ const BuynSell = () => {
 					},
 					data: formData
 				});
-				console.log(result);
+				// console.log(result);
 				if (result.data.otp === "otp") {
 					M.toast({ html: "Submitted", classes: "sellsuccess" })
 					document.getElementById("closeModal").click();
@@ -126,11 +126,11 @@ const BuynSell = () => {
 							pimage: ''
 						})
 						setLoader(false);
-						console.log(data);
-						console.log(res)
+						//console.log(data);
+						//console.log(res)
 					}
 					catch (err) {
-						console.log(err)
+						//console.log(err)
 						setLoader(false);
 					}
 				}
@@ -138,13 +138,13 @@ const BuynSell = () => {
 					M.toast({ html: "Error Occured" })
 				}
 			} catch (err) {
-				console.log(err)
+				//console.log(err)
 
 				M.toast({ html: "Error Occured" })
 			}
 		}
 	}
-	console.log(data);
+	//console.log(data);
 	const changeProductlist = async (e) => {
 		const value = e.target.value;
 		setSearch(value);

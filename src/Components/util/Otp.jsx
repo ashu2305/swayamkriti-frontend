@@ -6,7 +6,7 @@ import { Redirect} from "react-router-dom"
 import Particles from "react-particles-js";
 import CreatePassword from '../util/CreatePassword';
 const Otp = (props) => {
-    console.log(props);
+    //console.log(props);
     const[backOtp, setOTP] = useState(props.otp);
     const [page, setPage] = useState(0);
     const[otp, setOtp] = useState(0);
@@ -43,7 +43,7 @@ const Otp = (props) => {
             }
             setLoad(false);
             setPage(1);
-            console.log(error);
+            //console.log(error);
         }
     }
 
@@ -62,7 +62,7 @@ const Otp = (props) => {
             }
             
         }else{
-            console.log(md5(otp) , backOtp);
+            //console.log(md5(otp) , backOtp);
             window.alert("OTP does not match Please try again");
         }
     }
@@ -97,15 +97,15 @@ const Otp = (props) => {
                     setOTP(res.data.otp);
                     setLoad(false);
                 }
-                console.log(res.data);
+                //console.log(res.data);
             }            
         }catch(error){
             setLoad(false);
-            console.log(error);
+            //console.log(error);
         }   
     }
     
-    console.log(page);
+    //console.log(page);
     if(page===1){
         return (<Redirect to='/signup'/>);
     }

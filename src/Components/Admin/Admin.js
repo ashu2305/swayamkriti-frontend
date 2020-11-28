@@ -68,7 +68,7 @@ const Admin = () => {
             }
             catch (error) {
                 setLoader(false)
-                console.log(error);
+                
             }
         }
 

@@ -28,7 +28,7 @@ const Login = () => {
         })
     }
     const handleChange = e =>{
-        console.log( e.target.value);
+        //console.log( e.target.value);
         setData({
             ...data,
             [e.target.name]: e.target.value
@@ -51,10 +51,10 @@ const Login = () => {
                 `${config.BASE}/api/token/` , 
                 postData
             );
-            console.log(res);
+            //console.log(res);
             if(res.data)
             {
-                console.log(res.data);
+                //console.log(res.data);
                 if(res.data.access){
                     if(data.role === "admin"){
                         if((data.email === "technobyte@swaymkriti.com" ) || 
@@ -95,7 +95,7 @@ const Login = () => {
                 setError(4);
                 setLoad(false);
             }   
-            console.log(error.response);
+            //console.log(error.response);
         }   
     }
     if(state.isAuthAdmin){
@@ -124,7 +124,7 @@ const Login = () => {
         }else{
             setError(1);
         }
-        console.log("hello in submit");
+        //console.log("hello in submit");
     }
 
     if(state.isAuth){

@@ -37,13 +37,13 @@ const Forgotpassword = () => {
                     setOTP(res.data.otp);
                 setPage(1);
                 setLoad(false);
-                console.log(res.data);
+                //console.log(res.data);
             }
                 
             }            
         }catch(error){
             setLoad(false);
-            console.log(error);
+            //console.log(error);
         }   
     }
 
@@ -52,7 +52,7 @@ const Forgotpassword = () => {
         if(data.email !== ''  ) {
             setLoad(true);
             otpSent();
-            console.log("verified");
+            //console.log("verified");
         }
         else {
             setError(1);
