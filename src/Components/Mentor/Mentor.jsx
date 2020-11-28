@@ -6,7 +6,7 @@ import { Autocomplete, Icon } from 'react-materialize'
 import axios from 'axios'
 import { BASE, IMAGE_URL } from "../../config.json"
 const Mentor = () => {
-	const [filter, SetFilter] = useState("");
+	const [filter, SetFilter] = useState("name");
 	const [mentors, Setmentors] = useState([]);
 	const [allmentors, SetAllmentors] = useState([]);
 	const [originalmentors, SetOriginalmentors] = useState([]);
@@ -95,13 +95,13 @@ const Mentor = () => {
 								<label htmlFor="search-product">Search</label>
 							</div>
 							<div className="mentorfilter center-align">
-								<select defaultValue={filter} onChange={async (e) => { await SetFilter(e.target.value) }}>
-									<option defaultValue="" disabled selected>Filter</option>
-									<option defaultValue="name">Name</option>
-									<option defaultValue="year">Batch Year</option>
-									<option defaultValue="branch">Branch</option>
-									<option defaultValue="skills">Skill</option>
-									<option defaultValue="areaofinterest">Area of interest</option>
+								<select value={filter} onChange={async (e) => { await SetFilter(e.target.value) }}>
+									<option value="" disabled selected>Filter</option>
+									<option value="name">Name</option>
+									<option value="year">Batch Year</option>
+									<option value="branch">Branch</option>
+									<option value="skills">Skill</option>
+									<option value="areaofinterest">Area of interest</option>
 								</select>
 							</div>
 						</div>
