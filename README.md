@@ -11,8 +11,6 @@
 ![Completion](https://img.shields.io/badge/Project%20Phase-completed-blue?style=plastic)
 
 
-## This repository contains the code for the user-interface of the app. Code for the repository containing the server side code is provided below : 
+### This repository contains the code for the user-interface of the app. Code for the repository containing the server side code is provided below : 
 
-```
-(https://github.com/mohinesh9999/excal)
-```
+[Here](https://github.com/mohinesh9999/excal)
